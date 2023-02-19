@@ -41,14 +41,21 @@ print(f"Resultado em operacao_2 = {operacao_2}")
 print(f"Resultado em operacao_3 = {operacao_3}")
 print(f"Resultado em operacao_4 = {operacao_4}")
 
-#
+# Uma equação do segundo grau possui a fórmula: y = a*x**2 + b*x + c, onde a, b, c são constantes.
+# Considerando os valores a = 2, b = 0.5 e c = 1
 
 a = 2
 b = 0.5
 c = 1
 x = input("Digite o valor de x: ")
 
-x = float(x) # aqui fazemos a conversão da string para o tipo numérico
+# "TypeError" quer dizer que alguma variável não está com o tipo adequado para a situação.
+# A mensagem nos diz que não é permitida a operação de potenciação (**) entre um tipo string e inteiro.
+# Portanto, o erro é porque estamos tentando fazer uma operação matemática entre string e um tipo numérico.
+# Ao usar a função input(), ela retorna uma string, independente do que o usuário digitou, sempre será string.
+
+# Aqui fazemos a conversão da string para o tipo numérico
+x = float(x)
 
 y = a * x ** 2 + b * x + c
 
