@@ -26,12 +26,12 @@ for x in range(5):
 
 # Sintaxe de uma função:
 
-def nome_funcao():
+# def nome_funcao():
     # bloco de comandos
 
 # Os nomes das funções devem estar em minúsculas, com as palavras separadas por underline, conforme necessário, para melhorar a legibilidade. Os nomes de variáveis seguem a mesma convenção que os nomes de funções. Nomes com mixedCase (mistura de maiúsculas e minúsculas) são permitidos apenas em contextos em que o nome já existe com o formato recomendado.
 
-    def imprimir_mensagem(disciplina, curso):
+def imprimir_mensagem(disciplina, curso):
         print(f"Minha primeira função em Python desenvolvida na disciplina: {disciplina}, do curso: {curso}")
     
 imprimir_mensagem("Python", "ADS")
