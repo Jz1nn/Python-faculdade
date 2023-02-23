@@ -1,5 +1,8 @@
 # ENUNCIADO
-# Implementar uma solução que envolve o cálculo do imposto de renda, baseado nos dados do ano de 2020. O programa deve receber um salário, com base no valor informado, e algoritmo deve verificar em qual faixa do imposto esse valor se enquadra, quando encontrar a faixa, o programa imprime o valor a ser deduzido.
+
+# Implementar uma solução que envolve o cálculo do imposto de renda, baseado nos dados do ano de 2020.
+# O programa deve receber um salário com base no valor informado, e o algoritmo deve verificar em qual faixa do imposto esse valor se enquadra.
+# Quando encontrar a faixa, o programa imprime o valor a ser deduzido.
 
 salario = 0
 salario = float(input("Digite o salário do colaborador: "))

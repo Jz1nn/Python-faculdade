@@ -40,3 +40,40 @@ def calcular_valor(valor_prod, qtde, moeda="real", desconto=None, acrescimo=None
 
 valor_a_pagar = calcular_valor(valor_prod=32, qtde=5, desconto=5)
 print(f"O valor final da conta é {valor_a_pagar}")
+
+# O nome da função "calcular_valor" executa ações, por isso, é uma boa prática escolher verbos infinitos.
+# A função foi desenvolvida de modo a receber cinco parâmetros, sendo três deles obrigatórios e dois opcionais.
+# Nessa implementação, para construir os parâmetros opcionais atribuímos o valor "None" às variáveis.
+# Nesse caso, como tem um valor padrão, mesmo sendo "None", a função pode ser invocada sem a passagem desses parâmetros.
+# Usamos as estruturas condicionais (if), (elif) e (else) para verificar se foram passados valores para desconto ou acréscimo.
+# Caso tenha valores, serão diferentes de "None" e, então, os devidos cálculos são realizados.
+# Após os cálculos de desconto, é feito o teste para saber qual moeda foi usada na compra e fazer a conversão para real.
+
+
+# Outra implementação, usando o "**kwargs" para os argumentos opcionais.
+# Nesse caso, um dicionário é recebido e precisa ter o valor extraído.
+
+def calcular_valor(valor_prod, qtde, moeda="real", **kwargs):
+    v_bruto = valor_prod * qtde
+
+    if 'desconto' in kwargs:
+        desconto = kwargs['desconto']
+        v_liquido = v_bruto - (v_bruto * (desconto / 100))
+    elif 'acrescimo' in kwargs:
+        acrescimo = kwargs['acrescimo']
+        v_liquido = v_bruto + (v_bruto * (acrescimo / 100))
+    else:
+            v_liquido = v_bruto
+
+    if moeda == 'real':
+        return v_liquido
+    elif moeda == 'dolar':
+        return v_liquido * 5
+    elif moeda == 'euro':
+        return v_liquido * 5.7
+    else:
+        print("Moeda não cadastrada!")
+        return 0
+
+valor_a_pagar = calcular_valor(valor_prod=32, qtde=5, desconto=5)
+print(f"O valor final da conta é {valor_a_pagar}")

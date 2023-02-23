@@ -90,18 +90,18 @@ def somar(a, b):
 r = somar(2)
 print(r)
 
-# TypeError: somar() missing 1 required positional argument: 'b'
-# A função "somar" foi definida para receber dois parâmetros, porém quando foi invocada, somente um foi passado. "falta 1 argumento posicional obrigatório"
+# TypeError: somar() missing 1 required positional argument: 'b'.
+# A função "somar" foi definida para receber dois parâmetros, porém quando foi invocada, somente um foi passado. "falta 1 argumento posicional obrigatório".
 # Deve ser invocada passando os dois argumentos, por exemplo: r = somar(2, 3).
 
 # O grupo de parâmetros 2, também temos os parâmetros posicionais e obrigatórios, porém vamos definir um valor default (padrão), assim, quando a função for invocada, caso nenhum valor seja passado, o valor default é utilizado.
 
-def calcular_desconto(valor, desconto=0): # O parâmetro desconto possui zero valor default
+def calcular_desconto(valor, desconto=0): # O parâmetro desconto possui zero valor default.
     valor_com_desconto = valor - (valor * desconto)
     return valor_com_desconto
 
-valor1 = calcular_desconto(100) #Não aplicar nenhum desconto
-valor2 = calcular_desconto(100,0.25) #Aplicar desconto de 25%
+valor1 = calcular_desconto(100) #Não aplicar nenhum desconto.
+valor2 = calcular_desconto(100,0.25) #Aplicar desconto de 25%.
 
 print(f"\nPrimeiro valor a ser pago = {valor1}")
 print(f"\nSegundo valor a ser pago = {valor2}")
@@ -136,16 +136,16 @@ def converter_maiuscula(texto, flag_maiuscula):
     else:
             return texto.lower()
 
-texto = converter_maiuscula(flag_maiuscula=True, texto="João") #Passagem nominal dos parâmetros
+texto = converter_maiuscula(flag_maiuscula=True, texto="João") #Passagem nominal dos parâmetros.
 print(texto)
 
-# Caso "flag_maiuscula" seja True, a função deve converter o texto recebido em letras maiúsculas, caso contrário, em minúsculas
+# Caso "flag_maiuscula" seja True, a função deve converter o texto recebido em letras maiúsculas, caso contrário, em minúsculas.
 # Como a função "converter_maiuscula" não possui valores default para os parâmetros, então a função deve ser invocada passando ambos valores.
 #  Não houve um erro lógico? Isso acontece porque a chamada foi feita de modo nominal, ou seja, atribuindo os valores às variáveis da função e, nesse caso, a atribuição não é feita de modo posicional.
 
 # O grupo de funções da categoria 4 é similar ao grupo 3: parâmetro nominal, obrigatório, mas nesse grupo os parâmetros podem possuir valor default (padrão).
 
-def converter_minuscula(texto, flag_minuscula=True): # O parâmetro flag_minuscula possui True como valor default
+def converter_minuscula(texto, flag_minuscula=True): # O parâmetro flag_minuscula possui True como valor default.
     if flag_minuscula:
         return texto.lower()
     else:
@@ -160,7 +160,7 @@ print(f"\nTexto 2 = {texto2}")
 # O parâmetro flag_minuscula, caso não seja passado na chamada da função, receberá o valor True.
 # Na chamada "texto2", passamos somente o texto.
 # Para ambas as chamadas o resultado foi o mesmo, devido o valor default atribuído na função. Se não quiséssemos o comportamento default, aí sim precisaríamos passar o parâmetro:
-# "texto = converter_minuscula(flag_minuscula=False, texto="LINGUAGEM de Programação")."
+# "texto = converter_minuscula(flag_minuscula=False, texto="LINGUAGEM de Programação").".
 
 # Todas as funções que criamos, sabemos exatamente o número de parâmetros que ela recebe. Mas existem casos em que esses parâmetros podem ser arbitrários, ou seja, a função poderá receber um número diferente de parâmetros a cada invocação.
 

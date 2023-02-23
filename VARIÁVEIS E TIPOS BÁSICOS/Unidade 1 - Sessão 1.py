@@ -1,3 +1,5 @@
+# VARIÁVEIS E TIPOS BÁSICOS DE DADOS EM PYTHON
+
 x = 10
 nome = 'aluno'
 nota = 8.75
@@ -10,7 +12,7 @@ print(type(nome))
 print(type(nota))
 print(type(fez_inscricao))
 
-# A função input() faz a leitura de um valor digitado
+# A função "input() faz a leitura de um valor digitado.
 
 nome = input("Digite um nome: ")
 print(nome)
@@ -45,7 +47,7 @@ print(f"Resultado em operacao_3 = {operacao_3}")
 print(f"Resultado em operacao_4 = {operacao_4}")
 
 # Uma equação do segundo grau possui a fórmula: y = a*x**2 + b*x + c, onde a, b, c são constantes.
-# Considerando os valores a = 2, b = 0.5 e c = 1
+# Considerando os valores a = 2, b = 0.5 e c = 1.
 
 a = 2
 b = 0.5
@@ -57,7 +59,7 @@ x = input("Digite o valor de x: ")
 # Portanto, o erro é porque estamos tentando fazer uma operação matemática entre string e um tipo numérico.
 # Ao usar a função input(), ela retorna uma string, independente do que o usuário digitou, sempre será string.
 
-# Aqui fazemos a conversão da string para o tipo numérico
+# Aqui fazemos a conversão da string para o tipo numérico.
 x = float(x)
 
 y = a * x ** 2 + b * x + c

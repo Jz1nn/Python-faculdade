@@ -11,7 +11,7 @@ if a < b:
     print(r)
 
 
-#estrutura condicional composta
+# Estrutura condicional composta
 
 a = 10
 b = 5
@@ -54,7 +54,7 @@ if qtde_faltas <= 5 and media_final >= 7:
 else:
     print("Aluno reprovado.")
 
-# Primeiro é feito a função input() e depois será convertida para inteira com a função int()
+# Primeiro é feito a função input() e depois será convertida para inteira com a função int().
 
 # Operações booleanas prioridade: 
 # not 
@@ -109,9 +109,9 @@ for x in range(5):
 # "Range()" foi utilizada para criar um "iterable" numérico (objeto iterável) para que as repetições acontecesse.
 
 # A função range() pode ser usada de três formas distintas:
-# 1: passando um único argumento que representa a quantidade de vezes que o laço deve repetir;
-# 2: passando dois argumentos, um que representa o início das repetições e outro o limite superior (NÃO INCLUÍDO) do valor da variável de controle;
-# 3: Passando três argumentos, início das repetições; limite superior (NÃO INCLUÍDO) da variável de controle; um que representa o incremento (ex:"2" = 2,4,6,8);
+# 1: passando um único argumento que representa a quantidade de vezes que o laço deve repetir.
+# 2: passando dois argumentos, um que representa o início das repetições e outro o limite superior (NÃO INCLUÍDO) do valor da variável de controle.
+# 3: Passando três argumentos, início das repetições; limite superior (NÃO INCLUÍDO) da variável de controle; um que representa o incremento (ex:"2" = 2,4,6,8).
 
 # Método 1:
 
@@ -152,6 +152,7 @@ for c in disciplina:
 # Foram impressas todas as letras, exceto vogais "a". Toda vez que elas eram encontradas, determina que pule, mas que a repetição prossiga para o próximo valor.
 
 # EXEMPLIFICANDO
+
 # Criar uma solução que procura pelas vogais "a", "e" em um texto.
 # Toda vez que essas vogais são encontradas, devemos informar que encontramos e qual posição do texto ela está.
 
