@@ -179,3 +179,73 @@ for p, x in enumerate(vogais):
 # A primeira guarda a posição e a segunda guarda o valor.
 # Usamos o nome x propositalmente para perceber que o nome da variável é de livre escolha.
 
+frutas = ["maça", "banana", "uva", "mamão", "maça"]
+notas = [8.7, 5.2, 10, 3.5]
+
+print("maça" in frutas) # True
+print("abacate" in frutas) # False
+print("abacate" not in frutas) # True
+print(min(frutas)) # banana
+print(max(notas)) # 10
+print(frutas.count("maça")) # 2
+print(frutas + notas)
+print(2 * frutas)
+# True
+# False
+# True
+# banana
+# 10
+# 2
+# ['maça', 'banana', 'uva', 'mamão', 'maça', 8.7, 5.2, 10, 3.5]
+# ['maça', 'banana', 'uva', 'mamão', 'maça', 'maça', 'banana', 'uva', 'mamão', 'maça']
+
+# Testamos, respectivamente, se os valores "maça" e "abacate" estavam na lista, e os resultados foram True e False.
+# Testamos se a palavra "abacate" não está na lista, e obtivemos True.
+# Usamos as funções mínimo e máximo para saber o menor e o maior valor de cada lista.
+# O mínimo de uma lista de palavras é feito sobre a ordem alfabética.
+# Contamos quantas vezes a palavra "maça" aparece na lista.
+# Concatenamos as duas listas e multiplicamos por 2 a lista de frutas. No resultado que uma "cópia" da própria da lista foi criada e adicionada ao final.
+
+
+# Na sintaxe de construção da lista, há semelhanças com a construção de arrays.
+# A lista é um objeto muito versátil, pois sua criação suporta a mistura de vários tipos de dados. 
+# O fatiamento (slice) de estruturas sequenciais é uma operação muito valiosa.
+
+lista = ['Python', 30.61, "Java", 51 , ['a', 'b', 20], "maça"]
+
+print(f"Tamanho da lista = {len(lista)}")
+
+for i, item in enumerate(lista):
+    print(f"Posição = {i},\t valor = {item} -----------------> tipo individual = {type(item)}")
+
+print("\nExemplos de slices:\n")
+
+print("lista[1] = ", lista[1])
+print("lista[0:2] = ", lista[0:2])
+print("lista[:2] = ", lista[:2])
+print("lista[3:5] = ", lista[3:5])
+print("lista[3:6] = ", lista[3:6])
+print("lista[3:] = ", lista[3:])
+print("lista[-2] = ", lista[-2])
+print("lista[-1] = ", lista[-1])
+print("lista[4][1] = ", lista[4][1])
+
+# Tamanho da lista = 6
+# Posição = 0,	 valor = Python -----------------> tipo individual = <class 'str'>
+# Posição = 1,	 valor = 30.61 -----------------> tipo individual = <class 'float'>
+# Posição = 2,	 valor = Java -----------------> tipo individual = <class 'str'>
+# Posição = 3,	 valor = 51 -----------------> tipo individual = <class 'int'>
+# Posição = 4,	 valor = ['a', 'b', 20] -----------------> tipo individual = <class 'list'>
+# Posição = 5,	 valor = maça -----------------> tipo individual = <class 'str'>
+
+# Exemplos de slices:
+
+# lista[1] =  30.61
+# lista[0:2] =  ['Python', 30.61]
+# lista[:2] =  ['Python', 30.61]
+# lista[3:5] =  [51, ['a', 'b', 20]]
+# lista[3:6] =  [51, ['a', 'b', 20], 'maça']
+# lista[3:] =  [51, ['a', 'b', 20], 'maça']
+# lista[-2] =  ['a', 'b', 20]
+# lista[-1] =  maça
+# lista[4][1] =  b
