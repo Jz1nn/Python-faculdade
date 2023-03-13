@@ -1,20 +1,12 @@
-# Python-faculdade
- Estudos da linguagem Python, usando o editor VSCODE
+# Sobre o Repositório
+- Este repositório é voltado para o estudo aprofundado da linguagem de programação Python, apresenta conhecimentos essenciais sobre a linguagem.
 
-##
+## Estrutura do repositório
+- Cada unidade/sessão foi minuciosamente revisada e aprimorada, culminando em desafios práticos que permitem aplicar o conteúdo de forma consistente. As sessões são estruturadas de forma progressiva, partindo do básico (variáveis e tipos básicos) até temas mais avançados (bibliotecas e funções para criação de gráficos).
 
-## - REVISÃO GERAL
-- REVISADO CADA SESSÃO, ENTÃO REALIZADO UM DESAFIO PRÁTICO PARA APLICAR CONTEÚDO CONTIDO NA MESMA
 ## Sessão 1
-- VARIÁVEIS E TIPOS BÁSICOS
-- DESAFIO PRÁTICO
+- Variáveis e tipos básicos.
 ## Sessão 2
-- CONDICIONAIS
-- ESTRUTURA CONDICIONAL SIMPLES
-- ESTRUTURA CONDICIONAL COMPOSTA
-- ESTRUTURA AND, OR, NOT
-- WHILE E FOR
-- RANGE, BREAK E CONTINUE
-- DESAFIO PRÁTICO
+- Estruturas condicionais (simples, composta e com operadores AND, OR e NOT), Loops (WHILE e FOR), Range, Break e Continue.
 ## Sessão 3
 - 
