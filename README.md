@@ -1,5 +1,5 @@
 # Python-faculdade
- Estudos da linguagem Python
+ Estudos da linguagem Python, usando o editor VSCODE
 
 ##
 
