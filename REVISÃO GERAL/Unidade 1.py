@@ -1,5 +1,6 @@
 # UNIDADE 1
 
+### SESSÃO 1
 # VARIÁVEIS E TIPOS BÁSICOS
 
 x = 10
@@ -98,6 +99,7 @@ print(f"A quantidade de peças para o mês {mes} será {r}")
 # A quantidade de peças para o mês 42 será 8400
 
 
+### SESSÃO 2
 # CONDICIONAIS
 
 a = 5
@@ -376,6 +378,7 @@ else:
 # O colaborador isento de imposto.
 # Salário a receber = 1300.0
 
+### SESSÃO 3
 # FUNÇÕES
 
 # print(): imprimir um valor na tela
