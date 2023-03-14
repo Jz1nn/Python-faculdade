@@ -1,7 +1,0 @@
-def calcular(*args):
-    r = sum(args)
-    for i in args:
-        r+= i
-    print(r)
-
-calcular(1, 4, 5)
