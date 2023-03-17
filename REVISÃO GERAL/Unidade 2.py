@@ -429,7 +429,7 @@ print(set('banana'))
 # Construção de objetos do tipo SET. Com exceção do 1º (não foi usado construtor set()), os demais resultam na mesma estrutura
 
 # Exemplo 2: passado parâmetro de uma sequência de caracteres 'aeiouaaaaa' (repetindo a vogal 'a')
-# O construtor interpreta como iterável e cria um conjunto em que cada caractere é um elemento (eliminando valores duplicados)
+# O construtor interpreta como iterável e cria um conjunto em que cada caractere é um elemento (eliminando valores duplicados), por isso a string banana, são eliminados os 'a' duplicados
 
 
 # Exemplo da utilidade do objeto SET:
@@ -475,7 +475,7 @@ create_report()
     # memória ram
     # modem
 
-# Criado função que gera o relatório das peças aptas a serem vendidas. Criados 2 objetos set> "componentes_verificados" e "componentes_com_defeito"
+# Criado função que gera o relatório das peças aptas a serem vendidas. Criados 2 objetos set: "componentes_verificados" e "componentes_com_defeito"
 # len() = saber quantos itens há em cada conjunto
 # difference() = obter os itens que estão em componentes_verificados, mas não em componentes_com_defeito
 # Também poderia ser feito com o sinal de subtração: componentes_ok = componentes_verificados - componentes_com_defeito
@@ -483,11 +483,11 @@ create_report()
 
 # OBJETOS DO TIPO MAPPING
 
-# Objetos do tipo MAPPING possuem um mapeamento entre uma chave e um valor. O dicionário em um exemplo de objeto que possui essa propriedade, sendo considerado uma estrutura de dados desse tipo. dicionário é um objeto mutável, permitindo a atribuição de um novo valor a uma chave já existente
+# Objetos do tipo MAPPING possuem um mapeamento entre uma chave e um valor. O dicionário em um exemplo de objeto que possui essa propriedade, sendo considerado uma estrutura de dados desse tipo. Dicionário é um objeto mutável, permitindo a atribuição de um novo valor a uma chave já existente
 
 # Formas de construir dicionários:
-# dicionario1 = {} # usando um par de chaves para denotar um DICT vazio
-# dicionario2 = {'one': 1, 'two': 2, 'three': 3} # usando um par de elementos (chave : valor) separados por vírgulas
+# dicionario1 = {} # par de chaves para denotar um DICT vazio
+# dicionario2 = {'one': 1, 'two': 2, 'three': 3} # par de elementos (chave : valor) separados por vírgulas
 # dict() = construtor
 
 # EXEMPLOS:
@@ -510,7 +510,7 @@ print(dici_1 == dici_2 == dici_3 == dici_4) # testar se as diferentes construç�
     # True
 
 # Criado 4 sintaxes distintas para criar e atribuir valores a um dicionário:
-# 1: dicionário vazio, criado chaves e atribuindo valores
+# 1: dicionário vazio, criado chaves e atribuído valores posteriormente
 # 2: dicionário com chaves e valores
 # 3: dict() = criar o dicionário passando como parâmetro uma lista de tuplas: dict([(tupla 1), (tupla 2)]), cada tupla é uma combinação de chave e valor
 # 4: dict(zip([])) = construtor dict e função zip para combinar valores de diferentes sequências e retornar um iterável de duplas. 1º elemento é referente ao primeiro elemento da sequência 1 e assim por diante
@@ -518,7 +518,7 @@ print(dici_1 == dici_2 == dici_3 == dici_4) # testar se as diferentes construç�
 # Testado se as construções produzem o mesmo objeto
 
 # nome_dicionario[chave] = acessar um valor do dicionário
-# nome_dicionario[chave] = novo_valor # atribuir novo valor
+# nome_dicionario[chave] = novo_valor ## atribuir novo valor
 
 # Uma única chave de um dicionário pode estar associada a vários valores por meio de uma lista, tupla ou outro dicionário (podendo acessar elementos internos)
 
@@ -672,19 +672,83 @@ print(f"Média dos valores em m4 = {m4.mean()}")
 # usado funções que extraem informações estatísticas básicas de um conjunto numérico
 
 
+# DESAFIO
+
+# Crie uma função que receba dois dicionários contendo informações de candidatos inscritos em um concurso que foi adiado e que ainda precisam ser avisados da alteração. Cada dicionário possui três chaves: nome, email e enviado. A chave nome é associada a uma lista de nomes, a chave email é associada a uma lista de e-mails e a chave enviado é associada a uma lista de valores booleanos que indica se o e-mail correspondente já foi enviado ou não. A função deve retornar uma lista com os e-mails que ainda não foram enviados. 
+
+# Exemplo:
+dict_x = {
+'nome': ['nome_1'],
+'email': ['email_1'],
+'enviado': [False]
+}
+
+# Considere que os dados passados para a função são:
+
+dados_1 = {
+    'nome': ['Sonia Weber', 'Daryl Lowe', 'Vernon Carroll', 'Basil Gilliam', 'Mechelle Cobb', 'Edan Booker', 'Igor Wyatt', 'Ethan Franklin', 'Reed Williamson', 'Price Singleton'],
+    'email': ['Lorem.ipsum@cursusvestibulumMauris.com', 'auctor@magnis.org', 'at@magnaUttincidunt.org', 'mauris.sagittis@sem.com', 'nec.euismod.in@mattis.co.uk', 'egestas@massaMaurisvestibulum.edu', 'semper.auctor.Mauris@Crasdolordolor.edu', 'risus.Quisque@condimentum.com', 'Donec@nislMaecenasmalesuada.net', 'Aenean.gravida@atrisus.edu'],
+    'enviado': [False, False, False, False, False, False, False, True, False, False]
+}
+
+dados_2 = {
+    'nome': ['Travis Shepherd', 'Hoyt Glass', 'Jennifer Aguirre', 'Cassady Ayers', 'Colin Myers', 'Herrod Curtis', 'Cecilia Park', 'Hop Byrd', 'Beatrice Silva', 'Alden Morales'],
+    'email': ['at@sed.org', 'ac.arcu.Nunc@auctor.edu', 'nunc.Quisque.ornare@nibhAliquam.co.uk', 'non.arcu@mauriseu.com', 'fringilla.cursus.purus@erategetipsum.ca', 'Fusce.fermentum@tellus.co.uk', 'dolor.tempus.non@ipsum.net', 'blandit.congue.In@libero.com', 'nec.tempus.mauris@Suspendisse.com', 'felis@urnaconvalliserat.org'],
+    'enviado': [False, False, False, True, True, True, False, True, True, False]
+}
+
+# RESOLUÇÃO:
+
+def extrair_lista_email(dict_1, dict_2):
+    lista_1 = list(zip(dict_1['nome'], dict_1['email'], dict_1['enviado']))
+    print(f"Amostra da lista 1 = {lista_1[0]}")
+
+    lista_2 = list(zip(dict_2['nome'], dict_2['email'], dict_2['enviado']))
+
+    dados = lista_1 + lista_2
+
+    print(f"\nAmostra de dados = \n{dados[:2]}\n\n")
+
+    # Lista com email de quem ainda não recebeu o aviso
+    emails = [item[1] for item in dados if not item[2]]
+
+    return emails
+
+dados_1 = {
+    'nome': ['Sonia Weber', 'Daryl Lowe', 'Vernon Carroll', 'Basil Gilliam', 'Mechelle Cobb', 'Edan Booker', 'Igor Wyatt', 'Ethan Franklin', 'Reed Williamson', 'Price Singleton'],
+    'email': ['Lorem.ipsum@cursusvestibulumMauris.com', 'auctor@magnis.org', 'at@magnaUttincidunt.org', 'mauris.sagittis@sem.com', 'nec.euismod.in@mattis.co.uk', 'egestas@massaMaurisvestibulum.edu', 'semper.auctor.Mauris@Crasdolordolor.edu', 'risus.Quisque@condimentum.com', 'Donec@nislMaecenasmalesuada.net', 'Aenean.gravida@atrisus.edu'],
+    'enviado': [False, False, False, False, False, False, False, True, False, False]
+}
+
+dados_2 = {
+    'nome': ['Travis Shepherd', 'Hoyt Glass', 'Jennifer Aguirre', 'Cassady Ayers', 'Colin Myers', 'Herrod Curtis', 'Cecilia Park', 'Hop Byrd', 'Beatrice Silva', 'Alden Morales'],
+    'email': ['at@sed.org', 'ac.arcu.Nunc@auctor.edu', 'nunc.Quisque.ornare@nibhAliquam.co.uk', 'non.arcu@mauriseu.com', 'fringilla.cursus.purus@erategetipsum.ca', 'Fusce.fermentum@tellus.co.uk', 'dolor.tempus.non@ipsum.net', 'blandit.congue.In@libero.com', 'nec.tempus.mauris@Suspendisse.com', 'felis@urnaconvalliserat.org'],
+    'enviado': [False, False, False, True, True, True, False, True, True, False]
+}
+
+emails = extrair_lista_email(dict_1=dados_1, dict_2=dados_2)
+print(f"E-mails a serem enviados = \n {emails}")
+    # Amostra da lista 1 = ('Sonia Weber', 'Lorem.ipsum@cursusvestibulumMauris.com', False)
+
+    # Amostra de dados =
+    # [('Sonia Weber', 'Lorem.ipsum@cursusvestibulumMauris.com', False), ('Daryl Lowe', 'auctor@magnis.org', False)]
 
 
+    # E-mails a serem enviados =
+    #  ['Lorem.ipsum@cursusvestibulumMauris.com', 'auctor@magnis.org', 'at@magnaUttincidunt.org', 'mauris.sagittis@sem.com', 'nec.euismod.in@mattis.co.uk', 'egestas@massaMaurisvestibulum.edu', 'semper.auctor.Mauris@Crasdolordolor.edu', 'Donec@nislMaecenasmalesuada.net', 'Aenean.gravida@atrisus.edu', 'at@sed.org', 'ac.arcu.Nunc@auctor.edu', 'nunc.Quisque.ornare@nibhAliquam.co.uk', 'dolor.tempus.non@ipsum.net', 'felis@urnaconvalliserat.org']
+
+# extrair_lista_email = recebe 2 dicionários de dados como parâmetro
+# lista_1 = lista de tuplas para poder fazer a extração. Cada uma composta por (nome, email, enviado) nessa sequência
+# zip() = construir uma tupla, passando com parâmetro a lista de nomes, emails e status do enviado e transformado resultado em lista
+
+# Impresso 1 tupla para testar construção
+# Criado segunda lista de tuplas, usando dados do 2º dict. Usado '+' para juntar as duas construções e ter uma lista completa de dados
+# dados = lista de tuplas, cada item dessa lista é uma TUPLA.
+
+# [item[1] for item in dados if not item[2]] = "item[1]" seleciona o valor que ocupa a posição 1 da tupla (emails).Iterando sobre todos os dados, terá uma lista com todos os emails. "if not item[2]" = posição 2 da tupla deve ser falso, para coletar todos os emails que não foram enviados, esse filtro seleciona somente se o "item[2]" não tiver o valor True
+
+# CONCLUSÃO: com a função zip() foi extraído cada registro do dict, depois com '+' foi juntado todos os dados, e usando listcomp foi criado uma lista com os critérios
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+### SESSÃO 2
+# MECANISMOS DE BUSCA
