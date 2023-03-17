@@ -2,29 +2,24 @@
 - Este repositório é voltado para o estudo aprofundado da linguagem de programação Python, apresenta conhecimentos essenciais sobre a linguagem.
 
 ## Estrutura do repositório
-- Cada unidade/sessão foi minuciosamente revisada e aprimorada, culminando em desafios práticos que permitem aplicar o conteúdo de forma consistente. As sessões são estruturadas de forma progressiva, partindo do básico (variáveis e tipos básicos) até temas mais avançados (bibliotecas e funções para criação de gráficos).
+- Cada unidade/sessão foi minuciosamente revisada e aprimorada, culminando em desafios práticos a cada sessão que permitem aplicar o conteúdo de forma consistente. As Unidades são estruturadas de forma progressiva, partindo da introdução à linguagem até temas mais avançados como Análise de Dados.
 
-# Unidade 1
+# Unidade 1 - Introdução à Linguagem
 - SESSÃO 1
 - Variáveis e tipos básicos.
 #
 - SESSÃO 2
-- Estruturas condicionais simples/composta.
-- Operadores AND, OR e NOT.
-- Loops WHILE/FOR.
-- Range/Break/Continue.
+- Estruturas lógicas, condicionais e de repetição.
 #
 - SESSÃO 3
-- Funções built-in.
-- Funções definidas e indefinidas pelo usuário.
-- Parâmetros posicionais/nominais, obrigatórios/não obrigatórios e com/sem valor default.
+- Funções.
 
-# Unidade 2
+# Unidade 2 - Estruturas de dados
 - SESSÃO 1
-- 
+- Lista, Tuplas, Set, Dicionário.
 #
 - SESSÃO 2
-- 
+- Algoritmos de busca.
 #
 - SESSÃO 3
-- 
+- Algoritmos de ordenação.
