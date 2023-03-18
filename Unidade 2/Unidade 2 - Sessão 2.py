@@ -201,7 +201,7 @@ def executar_busca_binaria(lista, valor):
         if valor < lista[meio]:
             maximo = meio - 1
         elif valor > lista[meio]:
-            maximo = meio + 1
+            minimo = meio + 1
         else:
             return True # Se o valor for encontrado para aqui
     return False # Se chegar até aqui, significa que o valor não foi encontrado
