@@ -53,18 +53,3 @@ testar_funcao(lista_cpfs)
 
 # Adicionamos à lista_dedup o CPF, já validado, transformado e com a garantia de que não está duplicado.
 # Na terceira parte da solução, apenas fazemos um teste. Dada uma sequência fictícia de CPFs, veja que o resultado é exatamente o que queremos: CPFs somente numéricos sem duplicações. Veja como o algoritmo foi capaz de lidar com CPFs que contêm traços e pontos da mesma forma que o fez com os somente numéricos.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
