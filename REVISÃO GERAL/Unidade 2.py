@@ -752,3 +752,188 @@ print(f"E-mails a serem enviados = \n {emails}")
 
 ### SESSÃO 2
 # MECANISMOS DE BUSCA
+
+nomes = 'João Marcela Sonia Daryl Vernon Eder Mechelle Edan Igor Ethan Reed Travis Hoyt'.split()
+
+print('Marcela' in nomes)
+print('Roberto' in nomes)
+    # True
+    # False
+
+# in = verificar se está na lista
+
+
+# BUSCA LINEAR (SEQUENCIAL)
+
+# A busca linear/exaustiva percorre os elementos de uma sequência em busca de um valor específico, iniciando por uma das extremidades e examinando todos os elementos até encontrá-lo (ou não). Esse método pode ser computacionalmente custoso
+
+# IMPLEMENTAÇÃO:
+# for = estrutura de repetição para percorrer a sequencia
+# if = estrutura de decisão para verificar se o valor em uma determinada posição é o que procuramos
+
+def executar_busca_linear(lista, valor):
+    for elemento in lista:
+        if valor  == elemento:
+            return True
+        return False
+    
+import random
+lista = random.sample(range(1000), 50)
+print(sorted(lista))
+
+executar_busca_linear(lista, 10)
+    # [63, 70, 99, 114, 137, 164, 174, 224, 236, 243, 263, 300, 301, 309, 310, 333, 336, 350, 351, 371, 375, 397, 400, 418, 463, 521, 525, 540, 561, 563, 573, 582, 593, 612, 649, 669, 690, 717, 727, 744, 806, 865, 881, 901, 922, 936, 940, 947, 962, 994]
+
+# executar_busca_linear = receber uma lista e um valor a ser localizado
+# Criado lista de repetição que percorrerá cada elemento da lista pela comparação com o valor buscado. Caso seja localizado, retorna True, caso não, retorna False
+
+# lista = random.sample(range(1000), 50) # criado lista de 50 valores com números inteiros randômicos que variam entre 0 e 1000. Cada execução do código gerará uma lista diferente e o resultado pode alterar
+# A função é capaz de determinar se um valor está ou não presente na sequência
+
+# index() = saber a posição na sequência. Estruturas de dados do tipo sequência possuem a função "sequência.index(valor)", que espera como parâmetro o valor a ser procurado na sequência
+
+vogais = 'aeiou'
+
+resultado = vogais.index('e')
+print(resultado)
+    # 1
+
+# Busca linear com utilização do "index()":
+# Iterar sobre a lista e quando for encontrado retornar o índice, caso não encontrar, retornar None
+# Em uma lista numérica, só podem ser localizados valores do mesmo tipo. Em uma sequência de caracteres, só podem ser localizadas letras, palavras e uma string vazia. None não pode ser localizado em uma lista, se tentar, ocorrerá um erro
+
+def procurar_valor(lista, valor):
+    tamanho_lista = len(lista)
+    for i in range(tamanho_lista):
+        if valor == lista[i]:
+            return [i]
+    return None
+
+vogais = 'aeiou'
+
+resultado = procurar_valor(lista=vogais, valor='o')
+
+if resultado != None:
+    print(f"Valor encontrado na posição {resultado}")
+else: print("Valor não encontrado")
+    # Valor encontrado na posição [3]
+
+# def procurar_valor(lista, valor) = retornar posição de um valor (se for encontrado)
+# vogais = 'aeiou' # criado lista de vogais
+# resultado = procurar_valor(lista=vogais, valor='o') # invocado a função passando a lista e o valor a ser procurado
+# if resultado != None # testado se o valor existe na variável "resultado". Caso o valor for None, o "else" é acionado
+# Valor encontrado na posição [3] = a lista tem tamanho 5, índices de 0 a 4. Valor 'o' foi encontrado na posição 3 da lista (percorrendo os índices 0, 1, 2 e 3)
+
+# Busca linear (sequencial) funciona desta forma: todas as posições são visitadas ate encontrar o elemento buscado, caso a busca for um valor que não está na lista, o resultado é "None"
+
+# Usando a função "index()" e o valor buscado não esteja na lista, retornará um erro. Na função "procurar_valor" se não for encontrado retorna None
+
+
+# COMPLEXIDADE
+
+# Algoritmos são considerados melhores quando usam menos recursos computacionais em relação a memória e processamento. O método de Cramer para resolver equações lineares pode levar dezenas de milhões de anos para resolver um sistema matricial de 20x20, enquanto o método de Gauss pode levar apenas alguns segundo
+# Diante uma lista de 1,5 milhões de nomes, é mais eficiente realizar a busca dividindo a lista ao meio e verificar se o nome buscado está na parte inferior ou superior, que buscar pela lista inteira (um por um)
+
+
+# BUSCA BINÁRIA
+
+# A diferença entre busca linear e busca binária é que no 2º os valores precisam estar ordenados
+
+# Como realizar:
+# 1º Encontra o item no meio da sequência (meio da lista)
+# 2º Se o valor procurado for igual ao item do meio, a busca se encerra
+# 3º Se não for, verifica se o valor buscado é maior ou menor que o valor central
+# 4º Se for maior, então a busca acontecerá na metade superior da sequência (a inferior é descartada); se não for, a busca acontecerá na metade inferior da sequência (a superior é descartada)
+
+# Ao encontrar o valor central de uma sequência, a divide em duas partes, o que justifica o nome de busca binária.
+
+# VALOR BUSCADO = 14
+# 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 
+#               m1        m2    m3
+
+# m1 = o algoritmo começa no valor central, mas como o valor buscado não é o central (maior que ele), a busca acontece na metade superior. A metade inferior é descartada
+# Diante novo conjunto, localizado valor central (m2), que também não é o valor buscado (maior que ele), a busca acontece na metade superior. A metade inferior é descartada
+# m3 = ao localizar o valor central novamente, o valor buscado é encontrado e finalizado o algoritmo
+
+# Lista com 1024 elementos:
+# Na 1º iteração do loop, ao encontrar o meio e excluir uma parte, a lista diminui para 512 elementos
+# 2º iteração, ao encontrar o meio e excluir uma parte, restam 256 elementos
+# 3º = 128, 4º = 64, 5º = 32, 6º = 16, 7º = 8, 8º = 4, 9º = 2, 10º = 1
+# Para 1024 elementos, no pior caso, o loop será executado 10 vezes. Enquanto na busca linear, a iteração acontecerá 1024 vezes
+
+
+# Pseudocódigo para busca binária:
+
+def executar_busca_binaria(lista, valor):
+    minimo = 0
+    maximo = len(lista) - 1
+    while minimo <= maximo:
+        meio = (minimo + maximo) // 2
+        if valor < lista[meio]:
+            maximo = meio - 1
+        elif valor > lista[meio]:
+            maximo = meio + 1
+        else:
+            return True
+    return False
+
+lista = list(range(1, 50))
+
+print(lista)
+
+print('\n',executar_busca_binaria(lista=lista, valor=10))
+print('\n', executar_busca_binaria(lista=lista, valor=200))
+    # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]
+    # True
+    # False
+
+# Variáveis que contém o primeiro e ultimo índice da lista. Serão atualizadas no loop conforme a condição
+    # minimo = 0
+    # maximo = len(lista) - 1
+
+# while minimo <= maximo: # não sabemos quantas vezes a repetição será executada. Será executado para todos os casos binários
+# meio = (minimo + maximo) // 2 # encontrar o meio da lista
+# if valor < lista[meio] # checado se o valor buscado é menor que o valor encontrado no meio da lista. Se for, atualizado o índice "máximo"
+# Neste cenário, é excluído a metade superior da lista. Caso o valor não seja menor que o meio da lista, é testado se ele é maior. Se for maior, é atualizado o menor índice e excluindo a metade inferior
+# Se o valor procurado não for nem maior nem menor e ainda estiver dentro do loop, então ele é igual e é retornado o valor True. Caso feito todos os testes e não for encontrado o valor, então retorna False
+
+# Testado a função "executar_busca_binaria" usando a função "range()" para criar uma lista numérica de 50 valores ordenados
+    # print('\n',executar_busca_binaria(lista=lista, valor=10)) # valor que existe
+    # print('\n', executar_busca_binaria(lista=lista, valor=200)) # valor que não existe
+
+# Alterando a função para retornar a posição que o valor ocupa na sequência:
+
+def procurar_valor(lista, valor):
+    minimo = 0
+    maximo = len(lista) - 1
+    while minimo <= maximo:
+        meio = (minimo + maximo) // 2
+        if valor < lista[meio]:
+            maximo = meio - 1
+        elif valor > lista[meio]:
+            minimo = meio + 1
+        else:
+            return meio
+    return None
+
+vogais = 'aeiou'
+
+resultado = procurar_valor(lista=vogais, valor='o')
+
+if resultado:
+    print(f"Valor encontrado na posição {resultado}")
+else:
+    print(f"Valor não encontrado")
+    # Valor encontrado na posição 3
+
+# return meio = guardado valor do "meio" em uma variável e retornado caso valor buscado esteja presente na lista
+# Verificado se o valor procurado é igual ao valor da posição do meio da lista, se for menor, o processo se repete considerando que a lista possui metade do tamanho, inicia na posição seguinte do meio
+# Se o valor da posição for menor, o processo é repetido, considerando que a lista tem a metade do tamanho e inicia na posição anterior
+
+# No teste:
+    # vogais = 'aeiou'
+    # resultado = procurar_valor(lista=vogais, valor='o')
+# A metade da lista está na posição 2 (i). Será buscado no próximo elemento a partir da metade da lista. Valor 'o' encontrado na posição 3
+
+
+# DESAFIO
