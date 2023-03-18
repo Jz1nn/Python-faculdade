@@ -266,10 +266,10 @@ else:
     print(f"Valor não encontrado")
 # Valor encontrado na posição 3
 
-# alteramos a função executar_busca_binaria para procurar_valor.
+# Alteramos a função executar_busca_binaria para procurar_valor.
 # Esta função fará a busca com o uso do algoritmo binário.
 # Alteramos o retorno da função.
-# Restamos o funcionamento do algoritmo.
+# Testamos o funcionamento do algoritmo.
 
 # É verificado se o valor procurado é igual ao valor da posição do meio da lista.
 # Se o valor procurado é menor, o processo se repete considerando que a lista possui a metade do tamanho, razão pela qual inicia na posição seguinte do meio.
