@@ -790,6 +790,7 @@ executar_busca_linear(lista, 10)
 # lista = random.sample(range(1000), 50) # criado lista de 50 valores com números inteiros randômicos que variam entre 0 e 1000. Cada execução do código gerará uma lista diferente e o resultado pode alterar
 # A função é capaz de determinar se um valor está ou não presente na sequência
 
+
 # index() = saber a posição na sequência. Estruturas de dados do tipo sequência possuem a função "sequência.index(valor)", que espera como parâmetro o valor a ser procurado na sequência
 
 vogais = 'aeiou'
@@ -872,7 +873,7 @@ def executar_busca_binaria(lista, valor):
         if valor < lista[meio]:
             maximo = meio - 1
         elif valor > lista[meio]:
-            maximo = meio + 1
+            minimo = meio + 1
         else:
             return True
     return False
