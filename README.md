@@ -23,3 +23,13 @@
 #
 - SESSÃO 3
 - Algoritmos de ordenação.
+
+# Unidade 3 - Orientado a Objetos
+- Sessão 1
+- Classes e Métodos.
+#
+- Sessão 2
+- Bibliotecas e módulos.
+#
+- Sessão 3
+- Aplicação de Banco de dados.
