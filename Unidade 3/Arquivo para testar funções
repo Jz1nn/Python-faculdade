@@ -1,0 +1,7 @@
+class PrimeiraClasse:
+
+    def imprimir_mensagem(self, nome): #criando um metodo
+        print("Olá {nome}, seja bem vindo")
+
+objeto1 = PrimeiraClasse() # instanciando um objeto do tipo PrimeiraClasse
+objeto1.imprimir_mensagem('John') # invocando um metodo
