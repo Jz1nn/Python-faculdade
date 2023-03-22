@@ -300,3 +300,139 @@ print(d)
 
 
 # HERANÇA MÚLTIPLA
+
+# Python permite que uma classe-filha herde recursos de mais de uma superclasse.
+# Para isso, basta declarar cada classe a ser herdada separada por vírgula.
+
+class Ethernet():
+    def __init__(self, name, mac_address):
+        self.name = name
+        self.mac_address = mac_address
+
+class PCI():
+    def __init__(self, bus, vendor):
+        self.bus = bus
+        self.vendor = vendor
+
+class USB():
+    def __init__(self, device):
+        self.device = device
+
+class Wireless(Ethernet):
+    def __init__(self, name, mac_address):
+        Ethernet.__init__(self, name, mac_address)
+
+class PCIEthernet(PCI, Ethernet):
+    def __init__(self, bus, vendor, name, mac_address):
+        PCI.__init__(self, bus, vendor)
+        Ethernet.__init__(self, name, mac_address)
+
+class USBWireless(USB, Wireless):
+    def __init__(self, device, name, mac_address):
+        USB.__init__(self, device)
+        Wireless.__init__(self, name, mac_address)
+
+eth0 = PCIEthernet('pci :0:0:1', 'realtek', 'eth0', '00:11:22:33:44')
+wlan0 = USBWireless('usb0', 'wlan0', '00:33:44:55:66')
+
+print('PCIEthernet é uma PCI?', isinstance(eth0, PCI))
+print('PCIEthernet é uma Ethernet?', isinstance(eth0, Ethernet))
+print('PCIEthernet é uma USB?', isinstance(eth0, USB))
+
+print('\nUSBWireless é uma USB?', isinstance(wlan0, USB))
+print('USBWireless é uma Wireless?', isinstance(wlan0, Wireless))
+print('USBWireless é uma Ethernet?', isinstance(wlan0, Ethernet))
+print('USBWireless é uma PCI?', isinstance(wlan0, PCI))
+    # PCIEthernet é uma PCI? True
+    # PCIEthernet é uma Ethernet? True
+    # PCIEthernet é uma USB? False
+
+    # USBWireless é uma USB? True
+    # USBWireless é uma Wireless? True
+    # USBWireless é uma Ethernet? True
+    # USBWireless é uma PCI? False
+
+# A classe PCIEthernet herda recursos das classes PCI e Ethernet; logo, PCIEthernet é uma PCI e também uma Ethernet.
+# A classe USBWireless herda de USB e Wireless, mas Wireless herda de Ethernet; logo, USBWireless é uma USB, uma Wireless e também uma Ethernet, o que pode ser confirmado pelos resultados da função built-in isinstance(objeto, classe), que checa se um objeto é uma instância de uma determinada classe.
+
+
+class ContaCorrente:
+    def __init__(self, nome):
+        self.nome = nome
+        self.email = None
+        self.telefone = None
+        self._saldo = 0
+
+    def _checar_saldo(self, valor):
+        return self._saldo >= valor
+    
+    def depositar(self, valor):
+        self._saldo += valor
+
+    def sacar(self, valor):
+        if self._checar_saldo(valor):
+            self._saldo -= valor
+            return True
+        else:
+            return False
+        
+    def obter_saldo(self):
+        return self._saldo
+    
+# Foi implementado a classe ContaCorrente.
+# Especificamos que a classe deve ser construída recebendo como parâmetro um nome (se o nome não for passado, o objeto não é instanciado).
+# Dentro do construtor, criamos os atributos e os inicializamos. A variável _saldo recebe um sublinhado (underline) como prefixo para indicar que é uma variável privada e deve ser acessada somente por membros da classe.
+# O valor desse atributo deve ser alterado pelos métodos depositar e sacar, mas veja que o atributo é usado para checar o saldo e também no método de consulta ao saldo. O método _checar_saldo() é privado e, por isso, recebe o prefixo de sublinhado (underline) "_". Tal método é usado como um dos passos para a realização do saque, pois esta só pode acontecer se houver saldo suficiente.
+# Antes de fazer o saque, invocamos o método self._checar_saldo(valor) – o self indica que o método pertence à classe.
+
+class ContaPF(ContaCorrente):
+    def __init__(self, nome, cpf):
+        super().__init__(nome)
+        self.cpf = cpf
+
+    def solicitar_emprestimo(self, valor):
+        return self.obter_saldo() >= 500
+    
+# Criamos a classe ContaPF, que herda todas as funcionalidades da classe-pai ContaCorrente, inclusive seu construtor.
+# O objeto deve ser instanciado passando o nome e o cpf como parâmetros – o nome faz parte do construtor-base. Além dos recursos herdados, criamos o atributo cpf e o método solicitar_emprestimo, que consulta o saldo para aprovar ou não o empréstimo.
+
+class ContaPJ(ContaCorrente):
+    def __init__(self, nome, cnpj):
+        super().__init__(nome)
+        self.cnpj = cnpj
+
+    def sacar_emprestimo(self, valor):
+        return valor <= 5000
+
+# Criamos a classe ContaPJ, que herda todas as funcionalidades da classe-pai ContaCorrente, inclusive seu construtor.
+# O objeto deve ser instanciado passando o nome e o cnpj como parâmetros – o nome faz parte do construtor-base.
+# Além dos recursos herdados, criamos o atributo cnpj e o método sacar_emprestimo, que verifica se o valor solicitado é inferior a 5000.
+# Para esse valor, não usamos o parâmetro self, pois se trata de uma variável local, não um atributo de classe ou instância.
+
+conta_pf1 = ContaPF("John", '111.111.111-11')
+conta_pf1.depositar(1000)
+print('Saldo atual é', conta_pf1.obter_saldo())
+print('Receberá empréstimo = ', conta_pf1.solicitar_emprestimo(2000))
+
+conta_pf1.sacar(800)
+print('Saldo atual é', conta_pf1.obter_saldo())
+print('Receberá emprestimo = ', conta_pf1.solicitar_emprestimo(2000))
+    # Saldo atual é 1000
+    # Receberá empréstimo =  True
+    # Saldo atual é 200
+    # Receberá emprestimo =  False
+
+# Criamos um objeto do tipo ContaPF para testar as funcionalidades implementadas.
+# Instanciamos com os valores necessários. Fizemos um depósito, consultamos o saldo e solicitamos um empréstimo.
+# Como há saldo suficiente, o empréstimo é aprovado.
+# Na segunda parte dos testes, realizamos um saque, pedimos para imprimir o restante e solicitamos novamente um empréstimo, o qual, neste momento, é negado, pois não há saldo suficiente.
+
+conta_pj1 = ContaPJ("Empresa A", "11.111.111/111-11")
+print('Saldo atual é', conta_pj1.obter_saldo())
+print('Receberá empréstimo = ', conta_pj1.sacar_emprestimo(3000))
+    # Saldo atual é 0
+    # Receberá empréstimo =  True
+
+# Criamos um objeto do tipo ContaPJ para testar as funcionalidades implementadas.
+# Instanciamos com os valores necessários. Consultamos o saldo e na linha 3 solicitamos o saque de um empréstimo.
+# Mesmo não havendo saldo para o cliente, uma vez que a regra do empréstimo não depende desse atributo, o saque é permitido.
