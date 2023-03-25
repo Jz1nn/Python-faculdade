@@ -25,7 +25,7 @@
 # Serão construidas duas classes, uma com os métodos para DDL e outra para o CRUD (DML). Começarei pela classe capaz de criar um banco, criar e apagar uma tabela.
 # Será criado a classe DDLSQLite. Criei um método privado que retorna uma instância de conexão com um banco parametrizável.
 # Também criei três método públicos, um para criar um banco de dados, outro para criar uma tabela e o último para apagar uma tabela.
-# Todos os métodos são parametrizáveis, conforme foi solicitado. No método criar_banco_de_dados(),  cria o banco fazendo uma conexão e já fechando-a.
+# Todos os métodos são parametrizáveis, conforme foi solicitado. No método criar_banco_de_dados(), cria o banco fazendo uma conexão e já fechando-a.
 
 import sqlite3
 
