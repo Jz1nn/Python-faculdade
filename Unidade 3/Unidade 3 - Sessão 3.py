@@ -24,7 +24,7 @@
 
 # A necessidade de estabelecer uma conexão entre uma aplicação em uma linguagem de programação e um sistema gerenciador de banco de dados relacional (RDBMS) para poder enviar comandos SQL e efetuar ações no banco de dados. Para isso, podem ser utilizadas tecnologias como ODBC e JDBC para permitir a comunicação entre a linguagem de programação e o banco de dados.
 
-# A vantagem de utilizar as tecnologias ODBC e JDBC na comunicação entre uma aplicação e um sistema gerenciador de banco de dados relacional (RDBMS). A transparência entre diferentes RDBMS é possível devido ao uso de um driver, que é responsável por traduzir as chamadas ODBC e JDBC para a linguagem do RDBMS. O JDBC é uma API padrão em Java que abstrai a conexão com um RDBMS, enquanto o ODBC é uma API padronizada para conexão com os diversos RDBMS. Cada fornecedor de RDBMS constrói e distribui um driver JDBC gratuito, e para usar a API ODBC, é necessário configurar uma entrada nas propriedades do sistema.
+# A vantagem de utilizar as tecnologias ODBC e JDBC na comunicação entre uma aplicação e um sistema gerenciador de banco de dados relacional (RDBMS) esta no fato de que uma aplicacao pode acesar diferentes RDBMS sem precisar recompilar o codigo. A transparência entre diferentes RDBMS é possível devido ao uso de um driver, que é responsável por traduzir as chamadas ODBC e JDBC para a linguagem do RDBMS. O JDBC é uma API padrão em Java que abstrai a conexão com um RDBMS, enquanto o ODBC é uma API padronizada para conexão com os diversos RDBMS. Cada fornecedor de RDBMS constrói e distribui um driver JDBC gratuito, e para usar a API ODBC, é necessário configurar uma entrada nas propriedades do sistema.
 
 
 # CONEXÃO DE BANCO DADOS SQL EM PYTHON
