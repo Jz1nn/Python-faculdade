@@ -373,7 +373,7 @@ print('Recebera emprestimo = ', conta_pj1.sacar_emprestimo(3000))
     # Receberá empréstimo =  True
 
 # conta_pj1 = ContaPJ("Empresa A", "11.111.111/111-11") = criado objeto do tipo 'ContaPJ' para testar as funcionalidades. Instanciado com os valores necessarios, feito deposito e consultado o saldo, depois foi solicitado o emprestimo.
-# Mesmo não havendo saldo para o cliente, uma vez que a regra do empréstimo não depende desse atributo, o saque é permitido.
+# Mesmo nao havendo saldo para o cliente, uma vez que a regra do empréstimo nao depende desse atributo, o saque é permitido.
 
 
 # DESAFIO:
@@ -381,7 +381,7 @@ print('Recebera emprestimo = ', conta_pj1.sacar_emprestimo(3000))
 # O diagrama de classes ilustra o reuso do codigo atraves do mecanismo de heranca (cada classe herda os atributos e metodos de outra classe).
 
 # Um sistema precisa ser desenvolvido para atender três tipos distintos de clientes: pessoas físicas (PF) que compram com assiduidade, pessoas físicas que compram esporadicamente e pessoas jurídicas (PJ).
-# Os clientes VIPs terão um número ilimitado de itens para compra, enquanto os clientes PF não-VIPs só poderão comprar até 20 itens e os clientes PJ poderão comprar até 50 itens.
+# Os clientes VIPs terão um numero ilimitado de itens para compra, enquanto os clientes PF nao-VIPs só poderão comprar até 20 itens e os clientes PJ poderão comprar até 50 itens.
 # Para conceder benefícios nas compras, cada tipo de cliente terá um cupom de desconto: clientes VIPs terão um desconto de 20%, clientes PF esporádicos terão um desconto de 5% e clientes PJ terão um desconto de 10%.
 # Para encapsular o cupom de desconto, será necessário criar um método.
 
@@ -440,10 +440,8 @@ print(cli1.realizar_compras(['item1', 'item2', 'item3']))
 # Em cada classe-filha, determinados o valor do cupom de desconto logo após invocar o construtor da classe-base. sendo necessário encapsular esse recurso em um método em cada classe-filha.
 
 
-# UNIDADE 3
-
 ### SESSÃO 2
-# BIBLIOTECAS E MÓDULOS
+# BIBLIOTECAS E Modulos
 
 # Existem duas maneiras de organizar o codigo: implementando funcoes (cada bloco é responsavel por uma funcionalidade) e usando a OO para criar CLASSES que encapsulam as caracteristicas e comportamentos de um objeto.
 # Idealmente para modular uma solucao, é necessario separar as funcoes ou classes em varios arquivos '.py'. De acordo com a documentacao oficial do Python, é recomendado separar em um arquivo a parte qualquer funcionalidade que possa ser utilizada (criando um modulo).
@@ -457,23 +455,23 @@ print(cli1.realizar_compras(['item1', 'item2', 'item3']))
 
 # Nos primeiros exemplos de importacao, todas as funcionalidades sao carregadas na memoria. Na primeira é usado no codigo o nome do modulo e na segunda o modulo foi atribuido a um apelido (as = alias). No ultimo exemplo do importacao, somente funcionalidades especificas do modulo sao carregadas na memoria.
 
-# Todos os 'import' devem ficar no inicio do codigo, primeiro é declarado as bibliotecas-padrao (modulos built-in), depois as bibliotecas de terceiros, por cim os modulos especificos criados para a aplicacao. Cada bloco deve ser separado por uma linha em branco.
+# Todos os 'import' devem ficar no inicio do codigo, primeiro é declarado as bibliotecas-padrao (modulos built-in), depois as bibliotecas de terceiros, por fim os modulos especificos criados para a aplicacao. Cada bloco deve ser separado por uma linha em branco.
 
 
 # CLASSIFICACAO DOS MODULOS (BIBLIOTECAS)
 # Sao classificadas em 3 categorias:
-# Módulos built-in: embutidos no interpretador.
-# Módulos de terceiros: criados por terceiros e disponibilizados via PyPI.
-# Módulos próprios: criados pelo desenvolvedor.
+# Modulos built-in: embutidos no interpretador.
+# Modulos de terceiros: criados por terceiros e disponibilizados via PyPI.
+# Modulos proprios: criados pelo desenvolvedor.
 
 # MODULOS BUILT-IN
 # Esses modulos sao embutidos no interpretador, entao nao é necessario sua instalacao.
 
-# MÓDULO RANDOM
+# MODULO RANDOM
 # É usado para criar numeros aleatorios:
-# random.randint(a, b): retorna um valor inteiro aleatório, de modo que esse número esteja entre a, b.
-# random.choice(seq): extrai um valor de forma aleatória de uma certa sequência.
-# random.sample(population, k): retorna uma lista com k elementos, extraídos da população.
+# random.randint(a, b): retorna um valor inteiro aleatorio, de modo que esse numero esteja entre a, b.
+# random.choice(seq): extrai um valor de forma aleatoria de uma certa sequência.
+# random.sample(population, k): retorna uma lista com k elementos, extraidos da populacao.
 
 import random
 
@@ -486,11 +484,11 @@ print(random.sample(range(100000), k=12))
 
 # MODULO OS
 # É usado para executar comandos no sistema operacional:
-# os.getcwd(): retorna uma string com o caminho do diretório de trabalho.
-# os.listdir(path='.'): retorna uma lista com todas as entradas de um diretório. Se não for especificado um caminho, então a busca é realizada em outro diretório de trabalho.
-# os.cpu_count(): retorna um inteiro com o número de CPUs do sistema.
-# os.getlogin(): retorna o nome do usuário logado.
-# os.getenv(key): retorna uma string com o conteúdo de uma variável de ambiente especificada na key.
+# os.getcwd(): retorna uma string com o caminho do diretorio de trabalho.
+# os.listdir(path='.'): retorna uma lista com todas as entradas de um diretorio. Se nao for especificado um caminho, entao a busca é realizada em outro diretorio de trabalho.
+# os.cpu_count(): retorna um inteiro com o numero de CPUs do sistema.
+# os.getlogin(): retorna o nome do usuario logado.
+# os.getenv(key): retorna uma string com o conteudo de uma variavel de ambiente especificada na key.
 # os.getpid(): retorna o id do processo atual.
 
 import os
@@ -502,12 +500,11 @@ os.getlogin()
 os.getenv(key='path')
 os.getpid()
 
-
-# MÓDULO RE
+# MODULO RE
 # Regular expression fornece funcoes para busca de padroes em um texto. Permite verificar se uma determinada string corresponde a uma determinada expressao regular.
 
 # re.search(pattern, string, flags=0) = varre a string procurando o primeiro local onde o padrão de expressão regular produz uma correspondência e o retorna. Retorna None se nenhuma correspondência é achada.
-# re.match(pattern, string, flags=0) = procura por um padrão no começo da string. Retorna None se a sequência não corresponder ao padrão.
+# re.match(pattern, string, flags=0) = procura por um padrão no começo da string. Retorna None se a sequência nao corresponder ao padrão.
 # re.split(pattern, string, maxsplit=0, flags=0) = divide uma string pelas ocorrências do padrão.
 
 # Tendo um arquivo com nomeado com a data: meuArquivo_20-01-2020.py:
@@ -599,7 +596,7 @@ print(info.headers['las-modified']) # data da ultima modificacao da informacao
 # Foi acessado a data da extracao, servidor acessado, status da extracao, codificacao do texto e a data da ultima modificacao da informacao do servidor.
 # Tais informacoes podem ser usadas em um relatorio.
 
-# É possivel usar uma propriedade 'text' para acessar o conteudo extraido, convertendo todo o conteudo para uma string ou metodo 'json()' qie faz conversao para uma lista de 'dict'.
+# É possivel usar uma propriedade 'text' para acessar o conteudo extraido, convertendo todo o conteudo para uma string ou metodo 'json()' que faz conversao para uma lista de 'dict'.
 texto_str = info.text
 print(type(texto_str))
 texto_str[:100] # somente os 100 primeiros caracteres
@@ -660,14 +657,14 @@ info_relatorio[:5]
     # 'home_team': {'country': 'France', 'code': 'FRA', 'goals': 4, 'penalties': 0}.
 # Para acessar os gols, é necessario acessar a chave inteira 'goals' (outro dict): ['team']['goals']
 
-# file = open('relatorio_jogos.txt', "w") = funcao built-in para criar um arquivo onde serao escritas as informacoes (por isso o parametro 'w').
+# file = open('relatorio_jogos.txt', "w") = funcao built-in para criar um arquivo onde serao ESCRITAS as informacoes (por isso o parametro 'w').
 # file.write(linha + '\n') = escrever em cada linha gerada no arquivo, concatenando com uma nova linha '\n' a cada nova informacao.
 
 
 # MATPLOTLIB
 # Biblioteca com funcionalidades de criacao de graficos. Sera criado um grafico simples usando a interface Pyplot baseado nas informacoes salvas sobre os jogos da Copa do Mundo de Futebol Feminino (2019).
 
-# A extracao do relatorio foi armazenada no arquivo 'relatorio_jogos.txt'. Agora os dados que persistidos no arquivo serao lidos, extraindo somente as datas no formato 'dd/mm' e contabilizar quantos jogos ocorreram em cada data. Em seguida sera usado o Pyplot na construcao do grafico de contagem.
+# A extracao do relatorio foi armazenada no arquivo 'relatorio_jogos.txt'. Agora os dados que persistiram no arquivo serao lidos, extraindo somente as datas no formato 'dd/mm' e contabilizar quantos jogos ocorreram em cada data. Em seguida sera usado o 'Pyplot' na construcao do grafico de contagem.
 
 # ler arquivo
 file = open('relatorio_jogos.txt', 'r')
@@ -730,4 +727,246 @@ plt.show()
 # A funcao 'create_ssh_client()' retorna um client (a conexao em si). Em outro modulo chamado principal, é feita a importacao do modulo 'utils'.
 # Dentro do modulo princupal sera utilizado a funcionalidade de conexao para copiar um arquivo localizado em um servidor para outro local. Ambos os arquivos .py precisam estar no mesmo nivel de pasta.
 
-# Se for preciso usar o módulo utils em vários projetos, é interessante transformá-lo em uma biblioteca e disponibilizá-la via PyPI.
+# Se for preciso usar o MODULO utils em vários projetos, é interessante transformá-lo em uma biblioteca e disponibilizá-la via PyPI.
+
+
+# DESAFIO
+
+# A biblioteca 'requests' habilita funcionalidades do protocolo HTTP (get e post). Dentre seus metodos, get() é responsavel por capturar informacoes da internet.
+
+# Em um projeto de consultoria de software, o cliente solicitou a automação da extração de dados do CNAE, que é a classificação oficialmente adotada pelo Sistema Estatístico Nacional na produção de estatísticas por tipo de atividade econômica. Os dados estão disponíveis em um URL fornecido e o desenvolvedor foi responsável por gerar um relatório com as seguintes informações:
+
+# Quantas atividades distintas estão registradas?
+# Quantos grupos de atividades existem?
+# Quantas atividades estão cadastradas em cada grupo?
+# Qual grupo ou quais grupos possuem o maior numero de atividades vinculadas?
+
+
+# RESOLUCAO
+# Sera utilizada a biblioteca requests para extrair os dados e gerar o relatorio, em seguida manipular as listas e dicionarios para responder às perguntas.
+
+# extracao
+import requests
+
+dados = requests.get('https://servicodados.ibge.gov.br/api/v2/cnae/classes').json() # resulta em uma lista de dict
+
+dados[0] # exibir o primeiro registro de dados (primeiro dict da lista)
+    # {'id': '01113',
+    #  'descricao': 'CULTIVO DE CEREAIS',
+    #  'grupo': {'id': '011',
+    #   'descricao': 'PRODUÇÃO DE LAVOURAS TEMPORÁRIAS',
+    #   'divisao': {'id': '01',
+    #    'descricao': 'AGRICULTURA, PECUÁRIA E SERVIÇOS RELACIONADOS',
+    #    'secao': {'id': 'A',
+    #     'descricao': 'AGRICULTURA, PECUÁRIA, PRODUÇÃO FLORESTAL, PESCA E AGRICULTURA'}}},
+    #  'observacoes': ['Esta classe compreende - o cultivo de alpiste, arroz, aveia, centeio, cevada, milho, milheto, painço, sorgo, trigo, trigo preto, triticale e outros cereais nao especificados anteriormente',
+    #   'Esta classe compreende ainda - o beneficiamento de cereais em estabelecimento agrícola, quando atividade complementar ao cultivo\r\n- a produção de sementes de cereais, quando atividade complementar ao cultivo',
+    #   'Esta classe nao compreende - a produção de sementes certificadas dos cereais desta classe, inclusive modificadas geneticamente (01.41-5)\r\n- os serviços de preparação de terreno, cultivo e colheita realizados sob contrato (01.61-0)\r\n- o beneficiamento de cereais em estabelecimento agrícola realizado sob contrato (01.63-6)\r\n- o processamento ou beneficiamento de cereais em estabelecimento nao-agrícola (grupo 10.4) e (grupo 10.6)\r\n- a produção de biocombustível (19.32-2)']}
+
+# Com os dados guardados em uma lista de dict, é possivel usar a funcao 'len()' para saber quantos elementos a lista possui. O resultado sera a quantidade de dict que representa as quantidades distintas de atividades.
+
+# quantidades distintas de atividades
+qtde_atividades_distintas = len(dados)
+
+# Para saber quantos grupos de atividades existem, é necessario criar uma lista que percorre cada registro e extrai a informacao do grupo. No grupo, a informacao esta na chave interna 'descricao' da chave externa 'grupo', portanto para acessar, sera usado a sintaxe: ['chave_externa']['chave_interna'].
+# Entao sera criada uma lista vazia, e dentro de uma extrutura de repeticao, sera extraida a informacao e guardada na lista.
+
+# criar uma lista dos grupos de atividades, extraindo a descricao de cada registro
+grupos = []
+for registro in dados:
+    grupos.append(registro['grupo']['descricao'])
+
+grupos[:10]
+    # ['PRODUÇÃO DE LAVOURAS TEMPORÁRIAS',
+    #  'PRODUÇÃO DE LAVOURAS TEMPORÁRIAS',
+    #  'PRODUÇÃO DE LAVOURAS TEMPORÁRIAS',
+    #  'PRODUÇÃO DE LAVOURAS TEMPORÁRIAS',
+    #  'PRODUÇÃO DE LAVOURAS TEMPORÁRIAS',
+    #  'PRODUÇÃO DE LAVOURAS TEMPORÁRIAS',
+    #  'PRODUÇÃO DE LAVOURAS TEMPORÁRIAS',
+    #  'HORTICULTURA E FLORICULTURA',
+    #  'HORTICULTURA E FLORICULTURA',
+    #  'EXTRAÇÃO DE MINERAIS METÁLICOS nao-FERROSOS']
+
+# Com a lista contendo todos os grupos, é possivel usar o construtor 'set()' para criar um conjunto de dados sem as repeticoes e sem alterar a lista com todos. Com o resultado do set() é feita a contagem com a funcao 'len()' obtendo a quantidade de grupos distintos.
+
+# extraindo a quantidade de grupos de atividades
+qtde_grupos_distintos = len(set(grupos))
+
+# Usando 'listcomp' sera criada uma lista de tuplas para contar quantas atividades estao cadastradas em cada grupo. Cada tupla vai conter o grupo e a contagem de quantas vezes esse grupo aparece na lista: (grupo, grupos.count(grupo)). Sendo feito para cada grupo distinto (for grupo in set(grupos)).
+
+# com o resultado (lista de tuplas), é criado uma lina lista com o grupo e a quantidade de atividades pertencentes a ele
+grupos_count = [(grupo, grupos.count(grupo)) for grupo in set(grupos)]
+grupos_count[:5]
+    # [('TECELAGEM, EXCETO MALHA', 3),
+    #  ('COMÉRCIO ATACADISTA DE PRODUTOS DE CONSUMO nao-ALIMENTAR', 8),
+    #  ('ATIVIDADES DE ORGANIZAÇÕES ASSOCIATIVAS PATRONAIS, EMPRESARIAIS E PROFISSIONAIS',
+    #   2),
+    #  ('SEGURIDADE SOCIAL OBRIGATÓRIA', 1),
+    #  ('FABRICAÇÃO DE ELETRODOMÉSTICOS', 2)]
+
+# Para saber qual grupo/grupos possui maior numero de atividades vinculadas, a lista de tuplas sera transformada em um dict.
+
+# por conveniencia a lista sera transformada em um dicionario
+grupos_count = dict(grupos_count)
+
+# Agora é possivel crirar uma lista que contem todos os grupos que possuem a contagem com mesmo valor da quantidade maxima encontrada. Com o dicionario, é possivel acessar a chave e o valor.
+
+# com o dict, sera descoberto qual/quais grupos possuem mais atividades
+valor_maximo = max(grupos_count.values())
+grupos_mais_atividades = [chave for (chave, valor) in grupos_count.items() if valor == valor_maximo]
+print(len(grupos_mais_atividades))
+grupos_mais_atividades
+    # ['REPRESENTANTES COMERCIAIS E AGENTES DO COMÉRCIO, EXCETO DE VEÍCULOS AUTOMOTORES E MOTOCICLETAS']
+
+# Criando uma CLASSE e um METODO, é possivel extrair quando necessario, basta instanciar a classe e invocar o metodo:
+
+import requests
+
+from datetime import datetime
+
+class ETL:
+    def __init__(self):
+        self.url = None
+
+    def extract_cnae_data(self, url):
+        self.url = url
+        data_extracao = datetime.today().strftime("%Y/%m/%d - %H:%M:%S")
+        # faz extracao
+        dados = requests.get(self.url).json()
+
+        # extrai os grupos dos registros
+        grupos = []
+        for registro in dados:
+            grupos.append(registro['grupo']['descricao'])
+
+        # criar uma lista de tuplas (grupo, quantidade_atividades)
+        grupos_count = [(grupo, grupos.count(grupo)) for grupo in set(grupos)]
+        grupos_count = dict(grupos_count) # transformar em um dicionario
+
+        valor_maximo = max(grupos_count) # capturar valor maximo de atividades
+        # gerar uma lista com grupos que possuem quantidade maxima de atividades
+        grupos_mais_atividades = [chave for(chave, valor) in grupos_count.items() if valor == valor_maximo]
+
+        # informacoes
+        qtde_atividades_distintas = len(dados)
+        qtde_grupos_distintos = len(set(grupos))
+
+        print(f"Dados extraidos em: {data_extracao}")
+        print(f"Quantidade de atividades distintas = {qtde_atividades_distintas}")
+        print(f"Quantidade de grupos distintos = {qtde_grupos_distintos}")
+        print(f"Grupos com maior numero de atividades = {grupos_mais_atividades}, atividades = {valor_maximo}")
+
+        return None
+    
+# Usar a classe ETL:
+ETL().extract_cnae_data('https://servicodados.ibge.gov.br/api/v2/cnae/classes')
+
+
+### SESSÃO 3
+# APLICAÇÃO DE BANCO DE DADOS
+
+# As opções de armazenamento de dados utilizadas pelos softwares, podem ser em arquivos CSV, JSON, XML ou em um sistema de banco de dados. O sistema de banco de dados pode ser dividido em duas categorias: banco de dados relacional e banco de dados NoSQL.
+# A abordagem relacional é baseada na teoria dos conjuntos e persiste os dados em tabelas, enquanto o NoSQL é projetado para lidar com a velocidade e a escala de aplicações em grande escala e em outros formatos nao estruturados. O NoSQL geralmente nao segue os princípios do sistema de gerenciamento de banco de dados relacional e é projetado especificamente para lidar com a grande quantidade de dados que trafegam na rede e são processados.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
