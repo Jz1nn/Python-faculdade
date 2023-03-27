@@ -864,109 +864,316 @@ ETL().extract_cnae_data('https://servicodados.ibge.gov.br/api/v2/cnae/classes')
 
 
 ### SESSÃO 3
-# APLICAÇÃO DE BANCO DE DADOS
+# APLICACAO DE BANCO DE DADOS
 
-# As opções de armazenamento de dados utilizadas pelos softwares, podem ser em arquivos CSV, JSON, XML ou em um sistema de banco de dados. O sistema de banco de dados pode ser dividido em duas categorias: banco de dados relacional e banco de dados NoSQL.
-# A abordagem relacional é baseada na teoria dos conjuntos e persiste os dados em tabelas, enquanto o NoSQL é projetado para lidar com a velocidade e a escala de aplicações em grande escala e em outros formatos nao estruturados. O NoSQL geralmente nao segue os princípios do sistema de gerenciamento de banco de dados relacional e é projetado especificamente para lidar com a grande quantidade de dados que trafegam na rede e são processados.
+# As opcoes de armazenamento de dados utilizadas pelos softwares, podem ser em arquivos CSV, JSON, XML ou em um sistema de banco de dados. O sistema de banco de dados pode ser dividido em duas categorias: banco de dados relacional e banco de dados NoSQL.
+# A abordagem relacional é baseada na teoria dos conjuntos e persiste os dados em tabelas, enquanto o NoSQL é projetado para lidar com a velocidade e a escala de aplicacoes em grande escala e em outros formatos nao estruturados. O NoSQL geralmente nao segue os principios do sistema de gerenciamento de banco de dados relacional e é projetado especificamente para lidar com a grande quantidade de dados que trafegam na rede e sao processados.
 
 
+# LINGUAGEM DE CONSULTA ESTRUTURADA - SQL
+# Linguagem SQL é usada para comunicacao com bancos de dados relacionais (structured query language / linguagem de consulta estruturada), e fpo padronizada pelo ANSI em 1986. Apesar de cada fornecedor ter sua propria interpretacao do SQL, ha uma linguagem base padrao comum à todos. Empresas de softwares para bancos de dados adicionaram extensoes e modificacoes à linguagem padrao.
 
 
+# Instrucoes da linguagem SQL sao divididas em 3 grupos: DDL, DML e DCL:
+# DDL (Data Definition Language): linguagem de definicao de dados. Fazem parte deste grupo instrucoes destinadas a CRIAR, DELETAR e MODIFICAR banco de dados e tabelas. Neste modulo irao aparecer comandos como CREATE, ALTER e DROP.
 
+# DML (Data Manipulation Language): linguagem de manipulacao de dados. Fazem parte deste grupo instrucoes destinadas a RECUPERAR, ATUALIZAR, ADICIONAR e EXCLUIR dados de um banco d edados. Neste modulo irao aparecer comandos como INSERT, UPDATE e DELETE.
 
+# DCL (Data Control Language): linguagem de controle de dados. Fazem parte deste grupo instrucoes destinadas a manter a seguranca adequada para o banco de dados. Neste modulo irao aparecer comandos como GRANT e REVOKE.
 
 
+# BANCO DE DADOS RELACIONAL
 
+# CONEXAO COM BANCO DE DADOS RELACIONAL
+# Ha a necessidade de estabelecer uma conexao entre uma aplicacao de uma linguagem d eprogramacao e um sistema gerenciador de banco de dados relacional (RDBMS) para enviar comandos SQL e efetuar acoes no banco de dados. Para isso podem ser utilizadas tecnologias como 'ODBC' e 'JDBC' para permitir a comunicacao entre a linguagem e o banco de dados.
 
+# A vantagem de usar essas tecnologias na comunicacao entre a aplicacao e um sistema gerenciador de banco de dados relacional esta no fato de que uma aplicacao pode acessar diferentes RDBMS sem precisar recompilar o codigo. A transparencia entre diferentes RDBMS é possivel devido ao uso de um driver, que é responsavel por traduzir as chamadas ODBC e JDBC para linguagens do RDBMS. O JDBC é uma API padrão em Java que abstrai a conexão com um RDBMS, enquanto o ODBC é uma API padronizada para conexão com os diversos RDBMS. Cada fornecedor de RDBMS constrói e distribui um driver JDBC gratuito, e para usar a API ODBC, é necessário configurar uma entrada nas propriedades do sistema.
 
 
+# CONEXAO DE BANCO DE DADOS SQL EM PYTHON
+# Python utiliza bibliotecas para se comunicar com RDBMS, cada lib é especifica para o driver de um determinado fornecedor, que permite a conexao/execucao de comandos SQL no banco. O PEP 249 padroniza os modulos de conexao e envio de comandos, estabelecendo regras que os fornecedores devem seguir na construcao dos modulos. Permitindo que caso seja necessario alterar o banco de dados, somente os parametros precisam ser modificados (sem a necessidade de alterar o codigo).
 
 
+# BANCO DE DADOS SQLITE
+# É uma tecnologia que pode ser incorporada em dispositivos moveis e aplicativos, nao requerindo um processo de servidor separado, e armazenando os dados em um unico arquivo de disco. No Python o modulo built-in 'sqlite3' permite trabalhar com o SQLite.
 
 
+# CRIANDO UM BANCO DE DADOS
+# Para se conectar a um banco de dados em Python, é necessario utilizar o modulo 'sqlite3' e o metodo 'connect()'. Assim que a conexao é estabelecida, o arquivo do BD é criado na pasta do projeto (sqlite nao utiliza um processo de servidor separado). Se necessario criar o arquivo em outra pasta, basta especificar o caminho junto ao nome do arquivo: C:/Users/Documents/meu_projeto/meus_bancos/bancoDB.db.
 
+import sqlite3
 
+conn = sqlite3.connect('aulaBD.db')
+print(type(conn))
+    # <class 'sqlite3.Connection'>
 
+# conn = sqlite3.connect('aulaBD.db') = cria o arquivo e a variavel "conn" é um objeto da classe 'Connection' pertencente ao modulo 'sqlite3'.
 
+# CRIARNDO UMA TABELA
+# Apos realizar uma conexao com o banco de dados, é necessario uma instucao DDL da linguagem SQL para criar a tabela fornecedor. O comando SQL que cria a tabela 'fornecedor' é CREATE TABLE. A tabela criada deve ser armazenada em uma variavel.
+# OBS: ao tentar criar uma tabela que ja existe, retorna erro. Caso execute todas as celulas novamente, é necessario apagar a tabela no banco para evitar o erro.
 
+ddl_create = """
+CREATE TABLE fornecedor (
+    id_fornecedor INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    nome_fornecedor TEXT NOT NULL,
+    cnpj VARCHAR(18) NOT NULL,
+    cidade TEXT,
+    estado VARCHAr(2) NOT NULL,
+    cep VARCHAR(9) NOT NULL,
+    data_cadastro DATE NOT NULL
+);
+"""
 
+# O comando DDL implementado faz parte do conjunto de instruções SQL, devendo seguir a sintaxe que essa linguagem determina.
+# Padrao da instrucao:
+# 1. CREATE TABLE
+# 2. nome da tabela a ser criada
+# 3. nome do campo entre parenteses
+# 4. tipo e especificacao de quando nao sao aceitos valores nulos
 
+# PRIMARY KEY AUTOINCREMENT = instrucao no primeiro campo: a cada novo registro inserido, o valor deste campo aumentara 1.
 
+# Apos a conexao e a DDL, basta utilizar um mecanismo para que esse comando seja executado no banco. Segundo o PEP 249, esse mecanismo deve estar implementado em um metodo chamado 'execute()' de um objeto CURSOR.
+# Cursores desempenham o papel de pontes entre os conjuntos fornecidos como respostas das consultas e as linguagens de programacao que nao suportam conjuntos. Em Python, para construir essa ponte sempre sera utilizado um cursor para executar um comando SQL no banco de dados.
 
+cursor = conn.cursor()
+cursor.execute(ddl_create)
+print(type(cursor))
 
+print("Tabela criada!")
+print("Descrição do cursor: ", cursor.description)
+print("Linhas afetadas: ", cursor.rowcount)
+cursor.close()
+conn.close()
+    # <class 'sqlite3.Cursor'>
+    # Tabela criada!
+    # Descrição do cursor:  None
+    # Linhas afetadas:  -1
 
+# cursor = conn.cursor() = criado objeto cursor a partir da conexao.
+# cursor.execute(ddl_create) = metodo execute do objeto para criar a tabela pelo comando armazenado na variavel 'ddl_create' (como o 'cursor' é uma CLASSE, ele possui METODOS e ATRIBUTOS).
+# description / rowcount = o primeiro diz respeito a informacoes sobre a execucao, o segundo a quantas linhas foram afetadas. O ATRIBUTO 'description' fornece os nomes das colunas da ultima consulta. Como se trata de uma instrucao DDL, retornou None e a quantidade de linhas afetadas foi -1.
 
+# cursor/conn.close() = todo cursor e conexao, apos executar suas tarefas devem ser fechados pelo metodo 'close()'.
 
+# PEP 249(2020) diz que todos os modulos devem implementar 7 campos para o resultado do atributo desciption: name, type_code, display_size, internal_size, precision, scale e null_ok.
+# Alem de criar a tabela, é possivel exclui-la. A sintaxe para apagar a tabela (e todos seus dados) é "DROP TABLE table_name".
 
 
+# CRUD - CREATE, READ, UPDATE, DELETE
+# CRUD sao as 4 operacoes DML possiveis em uma tabela do banco de dados. Inserir informacoes (create), ler (read), atualizar (update) e apagar (delete).
 
+# Passos para efetuar uma das operacoes do CRUD:
+# 1. estabelecer conexao com um banco
+# 2. criar um cursor e executar o comando
+# 3. gravar a operacao
+# 4. fechar o cursor e a conexao
+
+# CREATE
+import sqlite3
+
+conn = sqlite3.connect('aulaBD.bd')
+cursor = conn.cursor()
+
+cursor.execute("""
+INSERT INTO fornecedor (nome_fornecedor, cnpj, cidade, estado, cep, data_cadastro)
+VALUES ('Empresa A', '11.111.111/1111-11', 'São Paulo', 'SP', '11111-111', '2020-01-01')
+""")
+
+cursor.execute("""
+INSERT INTO fornecedor (nome_fornecedor, cnpj, cidade, estado, cep, data_cadastro)
+VALUES ('Empresa B', '22.222.222/2222-22', 'Rio de Janeiro', 'RJ', '22222-222', '2020-01-01')
+""")
+
+cursor.execute("""
+INSERT INTO fornecedor (nome_fornecedor, cnpj, cidade, estado, cep, data_cadastro)
+VALUES ('Empresa C', '33.333.333/3333-33', 'Curitiba', 'PR', '33333-333', '2020-01-01')
+""")
 
+conn.commit()
 
+print("Dados inseridos!")
+print("Descrição do cursor: ", cursor.description)
+print("Linhas afetadas: ", cursor.rowcount)
+cursor.close()
+conn.close()
+    # Dados inseridos!
+    # Descrição do cursor:  None
+    # Linhas afetadas:  1
 
+# Apos importar a lib sqlite3, foi feita a conexao e criado o cursor.
+# cursor.execute() = inserido 3 registro na tabela fornecedor usando a sintaxe exigida. O campo 'id_fornecedor' nao foi passado pois foi criado como AUTOINCREMENTO.
+# conn.commit() = METODO para gravar as alteracoes na tabela. A quantidade de linhas afetadas foi 1, mostrando o resultado da ultima execucao do cursor que foi a insercao de 1 registro.
+
+
+# A maneira mais pratica de inserir varios registros é usar o METODO 'executemany()' do cursor, passando uma lista de tuplas, onde cada uma contem os dados a serem inseridos em uma linha.
+import sqlite3
+
+conn = sqlite3.connect('aulaDB.db')
+cursor = conn.cursor()
 
+dados = [
+    ('Empresa D', '44.444.444/4444-44', 'São Paulo', 'SP', '44444-444', '2020-01-01'),
+    ('Empresa E', '55.555.555/5555-55', 'São Paulo', 'SP', '55555-555', '2020-01-01'),
+    ('Empresa F', '66.666.666/6666-66', 'São Paulo', 'SP', '66666-666', '2020-01-01')
+]
 
+cursor.executemany("""
+INSERT INTO fornecedor (nome_fornecedor, cnpj, cidade, estado, cep, data_cadastro)
+VALUES (?, ?, ?, ?, ?, ?)""", dados)
 
+conn.commit()
 
+print("Dados inseridos!")
+print("Descrição do cursor: ", cursor.description)
+print("Linhas afetadas: ", cursor.rowcount)
+cursor.close()
+conn.close()
+    # Dados inseridos!
+    # Descrição do cursor:  None
+    # Linhas afetadas:  3
 
+# dados [] = lista de tupla.
+# cursor.executemany() = METODO para inserir a lista. Os valores foram substituidos por interrogacoes, alem da instrucao SQL, o metodo exige a passagem dos dados. Foram afetadas 3 linhas no banco (resultado do metodo do cursor).
 
 
+# READ
+# Agora que existem dados na tabela fornecedor, é possivel recuperar os dados.
+# É necessario estabelecer uma conexao e criar um objeto cursor para executar a instrucao de selecao.
+# Ao executar a selecao, é possivel usar o metodo 'fetchall()' para capturar todas as linhas, por meio de uma lista de tuplas.
 
+import sqlite3
 
+conn = sqlite3.connect('aulaDB.db')
+cursor = conn.cursor()
 
+cursor.execute("SELECT * FROM fornecedor")
+resultado = cursor.fetchall()
 
+print("Descrição do cursor: ", cursor.description)
+print("Linhas afetadas: ", cursor.rowcount)
+    # Descrição do cursor:  (('id_fornecedor', None, None, None, None, None, None), ('nome_fornecedor', None, None, None, None, None, None), ('cnpj', None, None, None, None, None, None), ('cidade', None, None, None, None, None, None), ('estado', None, None, None, None, None, None), ('cep', None, None, None, None, None, None), ('data_cadastro', None, None, None, None, None, None))
+    # Linhas afetadas:  -1
 
+for linha in resultado:
+    print(linha)
+    # (1, 'Empresa A', '11.111.111/1111-11', 'São Paulo', 'SP', '11111-111', '2020-01-01')
+    # (2, 'Empresa B', '22.222.222/2222-22', 'Rio de Janeiro', 'RJ', '22222-222', '2020-01-01')
+    # (3, 'Empresa C', '33.333.333/3333-33', 'Curitiba', 'PR', '33333-333', '2020-01-01')
+    # (4, 'Empresa D', '44.444.444/4444-44', 'São Paulo', 'SP', '44444-444', '2020-01-01')
+    # (5, 'Empresa E', '55.555.555/5555-55', 'São Paulo', 'SP', '55555-555', '2020-01-01')
+    # (6, 'Empresa F', '66.666.666/6666-66', 'São Paulo', 'SP', '66666-666', '2020-01-01')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# ("SELECT * FROM fornecedor") = instrucao SQL executada pelo cursor para selecionar todos (*) os dados da tabela fornecedor.
+# resultado = cursor.fetchall() = guardado o resultado na variavel "resultado" atraves do METODO fetchall(), que é uma lista de tuplas.
+# cursor.description = o atributo retornou tuplas, informando o nome da coluna afetada.
+# Os outros 6 campos da tupla retornaram None gracas a implementacao do modulo sqlite3.
+
+# for linha in resultado: = estrutura de decisao para iterar a lista e imprimir cada valor, cada linha é uma tupla com as informacoes inseridas.
+
+# Usando a clausula "where", é possivel selecionar somente os registros que satisfacam determinada condicao (funcionando como estrutura condicional).
+# Selecionando somente o registro cujo id_fornecedor é igual a 5:
+
+cursor.execute("SELECT * FROM fornecedor WHERE id_fornecedor = 5")
+resultado = cursor.fetchall()
+print(resultado)
+
+cursor.close()
+conn.close()
+    # [(5, 'Empresa E', '55.555.555/5555-55', 'São Paulo', 'SP', '55555-555', '2020-01-01')]
+
+
+# UPDATE
+# Ao inserir um registro no banco, pode ser necessario alterar o valor de uma coluna, sendo feito pela instrucao SQL UPDATE.
+
+import sqlite3
+
+conn = sqlite3.connect('aulaDB.db')
+cursor = conn.cursor()
+
+cursor.execute("UPDATE fornecedor SET cidade = 'Campinas' WHERE id_fornecedor = 5")
+conn.commit()
+
+cursor.execute("SELECT * FROM fornecedor")
+for linha in cursor.fetchall():
+    print(linha)
+
+cursor.close()
+conn.close()
+    # (1, 'Empresa A', '11.111.111/1111-11', 'São Paulo', 'SP', '11111-111', '2020-01-01')
+    # (2, 'Empresa B', '22.222.222/2222-22', 'Rio de Janeiro', 'RJ', '22222-222', '2020-01-01')
+    # (3, 'Empresa C', '33.333.333/3333-33', 'Curitiba', 'PR', '33333-333', '2020-01-01')
+    # (4, 'Empresa D', '44.444.444/4444-44', 'São Paulo', 'SP', '44444-444', '2020-01-01')
+    # (5, 'Empresa E', '55.555.555/5555-55', 'Campinas', 'SP', '55555-555', '2020-01-01')
+    # (6, 'Empresa F', '66.666.666/6666-66', 'São Paulo', 'SP', '66666-666', '2020-01-01')
+
+# Foi alterado o campo CIDADE do registro com id_fornecedor 5. No comando UPDATE é necessario usar a clausula WHERE para identificar o registro a ser alterado (caso nao use, todos sao alterados).
+# conn.commit() = como esta sendo feita uma alteracao no banco, é necessario gravar. Apos feita a alteracao, foi realizada a checagem mostrando todos os registros.
+
+
+# DELETE
+# Pode ser necessario remover um registro do banco, podendo ser feito com a instrucao SQL DELETE.
+
+import sqlite3
+
+conn = sqlite3.connect('aulaDB.db')
+cursor = conn.cursor()
+
+cursor.execute("DELETE FROM fornecedor WHERE id_fornecedor = 2")
+conn.commit()
+
+cursor.execute("SELECT * FROM fornecedor")
+for linha in cursor.fetchall():
+    print(linha)
+
+cursor.close()
+conn.close()
+    # (1, 'Empresa A', '11.111.111/1111-11', 'São Paulo', 'SP', '11111-111', '2020-01-01')
+    # (3, 'Empresa C', '33.333.333/3333-33', 'Curitiba', 'PR', '33333-333', '2020-01-01')
+    # (4, 'Empresa D', '44.444.444/4444-44', 'São Paulo', 'SP', '44444-444', '2020-01-01')
+    # (5, 'Empresa E', '55.555.555/5555-55', 'Campinas', 'SP', '55555-555', '2020-01-01')
+    # (6, 'Empresa F', '66.666.666/6666-66', 'São Paulo', 'SP', '66666-666', '2020-01-01')
+
+# Foi apagado o registro com id_fornecedor 2. Para usar o comando DELETE, é necessario usar a clausula WHERE para identificar o registo a ser apagado.
+# conn.commit() = como esta sendo feita uma alteracao no banco, é necessario gravar. Apos feita alteracao, é checado mostrando todos os registros.
+
+
+# INFORMACOES DO BANCO DE DADOS E DAS TABELAS
+# Alem das operacoes CRUD, é importante saber extrair informacoes estruturais do banco de dados e tabelas.
+# Os comandos podem mudar entre os bancos, porem é possivel extrair essas informacoes do SQLite.
+
+# A seguir serao usadas 2 instrucoes SQL, a primeira é capaz de retornar as tabelas do banco SQLite, e a segunda capaz de extrair as DDLs usadas para gerar as tabelas:
+
+import sqlite3
+
+conn = sqlite3.connect('aulaDB.db')
+cursor = conn.cursor()
+
+# Lista as tabelas do banco de dados
+cursor.execute("""SELECT name FROM sqlite_master WHERE type='table' ORDER BY name""")
+print('Tabelas:')
+for tabela in cursor.fetchall():
+    print(tabela)
+
+# Captura a DDL usada para criar a tabela
+tabela = 'fornecedor'
+cursor.execute(f"""SELECT sql FROM sqlite_master WHERE type='table' AND name='{tabela}'""")
+print(f'\nDDL da tabela {tabela}:')
+for schema in cursor.fetchall():
+    print("%s" % (schema))    
+    # cursor.close()
+    # conn.close()
+    # Tabelas:
+    # ('fornecedor',)
+    # ('sqlite_sequence',)
+    # DDL da tabela fornecedor:
+    # CREATE TABLE fornecedor (
+    #     id_fornecedor INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    #     nome_fornecedor TEXT NOT NULL,
+    #     cnpj VARCHAR(18) NOT NULL,
+    #     cidade TEXT, 
+    #     estado VARCHAR(2) NOT NULL,
+    #     cep VARCHAR(9) NOT NULL,
+    #     data_cadastro DATE NOT NULL
+    # )
