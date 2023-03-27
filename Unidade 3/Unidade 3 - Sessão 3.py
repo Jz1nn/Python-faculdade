@@ -69,7 +69,7 @@ CREATE TABLE fornecedor (
 
 # O comando DDL implementado faz parte do conjunto de instruções SQL, razão pela qual deve seguir a sintaxe que essa linguagem determina.
 
-# N padrão na instrução, começa com o comando CREATE TABLE, seguido do nome da tabela a ser criada e, entre parênteses, o nome do campo, o tipo e a especificação de quando não são aceitos valores nulos.
+# Podemos notar o padrão na instrução, começa com o comando CREATE TABLE, seguido do nome da tabela a ser criada e, entre parênteses, o nome do campo, o tipo e a especificação de quando não são aceitos valores nulos.
 # O primeiro campo possui uma instrução adicional, que é o autoincremento, ou seja, para cada novo registro inserido, o valor desse campo aumentará um.
 
 # Tendo a conexao e a DDL, basta utilizar um mecanismo para que esse comando seja executado no banco. Esse mecanismo, segundo o PEP 249, deve estar implementado em um método chamado execute() de um objeto cursor.
