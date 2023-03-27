@@ -53,15 +53,15 @@ class DDLSQLite:
     def apagar_tabela(self, nome_banco, tabela):
         conn = self._conectar(nome_banco)
         cursor = conn.cursor()
-        cursor.execute(f"DROP TABELE {tabela}")
+        cursor.execute(f"DROP TABLE {tabela}")
         cursor.close()
         conn.close()
         print(f"A tabela {tabela} foi excluida com sucesso!")
         return None
     
 # Agora será construido a classe que faz o CRUD. Como todas as operações precisam receber como parâmetro o nome do banco de dados, coloquei o parâmetro no método construtor, para instanciar essa classe, deve ser informado o nome da banco e, a partir do objeto, basta chamar os métodos e passar os demais parâmetros.
-# O nome do banco será usado pelo método privado _conectar(), que retorna uma instância da conexão, esse método será chamado internamente pelos demais métodos.O método inserir_registro(), extrai como uma tupla as colunas e os valores a serem usados para construir o comando de inserção.
-# O método ler_registros() seleciona todos os dados de uma tabela e os retorna, o retorno será uma lista de tuplas. O método atualizar_registro(), precisa tando dos dados a serem atualizados (dicionário) quanto dos dados que serão usados para construir a condição.
+# O nome do banco será usado pelo método privado _conectar(), que retorna uma instância da conexão, esse método será chamado internamente pelos demais métodos. O método inserir_registro(), extrai como uma tupla as colunas e os valores a serem usados para construir o comando de inserção.
+# O método ler_registros() seleciona todos os dados de uma tabela e os retorna, o retorno será uma lista de tuplas. O método atualizar_registro(), precisa tanto dos dados a serem atualizados (dicionário) quanto dos dados que serão usados para construir a condição.
 # A atualização só pode ser feita desde que o valor da condição seja inteiro. O método apagar_registro() também só pode ser executado desde que o valor da condição seja inteiro.
 
 import sqlite3
@@ -151,7 +151,7 @@ CREATE TABLE cliente (
 objeto_ddl.criar_tabela(nome_banco='desafio', ddl_create=ddl_create)
 
 # caso precise excluir a tabela:
-# objeto_ddl..apagar_tabela(nome_banco='desafio), tabela='cliente
+# objeto_ddl.apagar_tabela(nome_banco='desafio', tabela='cliente')
 
     # O banco de dados desafio.db foi criado com sucesso!
     # Tabela criada com sucesso!
@@ -196,7 +196,7 @@ for dado in dados_carregados:
 # atualizar um registro e excluir outro:
 
 # atualizar registro
-dado_atualizar = { 'telefone': '(11)1.1111-1111'}
+dado_atualizar = {'telefone': '(11)1.1111-1111'}
 condicao = {'id_cliente': 1}
 
 objeto_dml.atualizar_registro(tabela='cliente', dado=dado_atualizar, condicao=condicao)
