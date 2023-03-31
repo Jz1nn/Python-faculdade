@@ -31,7 +31,7 @@ pd.read_json('https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados?formato=jso
     # 4	10/06/1986	0.067041
 
 
-# Para realizar o carregamento os dados, é necessário incluir o caminho(diretório), portanto o parâmetro "filepath_or_buffer" é obrigatório. Outro parâmetro que é importante para a leitura desse arquivo é o sep ou delimiter (ambos fazem a mesma coisa), veja que sep, por padrão possui o valor ',', ou seja, caso não seja especificado nenhum valor, então o método fará a leitura dos dados considerando que estão separados por vírgula. O parâmetro header, tem como valor padrão 'infer', que significa que o método realiza a inferência para os nomes das colunas a partir da primeira linha de dados do arquivo.
+# Para realizar o carregamento dos dados, é necessário incluir o caminho(diretório), portanto o parâmetro "filepath_or_buffer" é obrigatório. Outro parâmetro que é importante para a leitura desse arquivo é o sep ou delimiter (ambos fazem a mesma coisa), veja que sep, por padrão possui o valor ',', ou seja, caso não seja especificado nenhum valor, então o método fará a leitura dos dados considerando que estão separados por vírgula. O parâmetro header, tem como valor padrão 'infer', que significa que o método realiza a inferência para os nomes das colunas a partir da primeira linha de dados do arquivo.
 
 # No codigo a seguir, estamos fazendo a leitura de uma fonte CSV, cujos campos são separados por vírgula, logo não foi preciso especificar um delimitador diferente.
 pd.read_csv('https://people.sc.fsu.edu/~jburkardt/data/csv/cities.csv').head()
@@ -117,7 +117,7 @@ df_selic.head()
 # Na primeira linha, o método recebe a coluna com os valores a serem alterados (df_selic['data']) e um segundo parâmetro, indicando que no formato atual (antes da conversão) o dia está primeiro (dayfirst=True).
 # Em seguida, na segunda linha, como a coluna "data_extracao" foi criada com o método today(), o formato já está correto para a conversão. Nessa conversão usamos o método astype, que transforma os dados de uma coluna (que é uma Series) em um determinado tipo, nesse caso, o tipo datetime especificado.
 
-# Com astype() podemos padronizar valores das colunas, por exemplo, transformando todos em float, ou int, ou str, ou outro tipo. Entao agora, ao usar o método info(), temos que ambas colunas são do tipo datetime (datetime da biblioteca pandas). O formato resultante ano-mês-dia é um padrão do datetime64[ns], que segue o padrão internacional, no qual o ano vem primeiro, seguido do mês e por último o dia. Poderíamos usar o stftime() para transformar o traço em barra (/), mas aí o resultado seriam strings e não datas.
+# Com astype() podemos padronizar valores das colunas, por exemplo, transformando todos em float, ou int, ou str, ou outro tipo. Entao agora, ao usar o método info(), temos que ambas colunas são do tipo datetime (datetime da biblioteca pandas). O formato resultante ano-mês-dia é um padrão do datetime64[ns], que segue o padrão internacional, no qual o ano vem primeiro, seguido do mês e por último o dia. Poderíamos usar o strftime() para transformar o traço em barra (/), mas aí o resultado seriam strings e não datas.
 
 df_selic['data'] = pd.to_datetime(df_selic['data'], dayfirst=True)
 df_selic['data_extracao'] = df_selic['data_extracao'].astype('datetime64[ns]')
@@ -174,9 +174,9 @@ df_selic.head()
     
 
 # MÉTODO RESET_INDEX() E SET_INDEX()
-# Ao fazermos a ordenação dos dados com o método sort_values(), veja que os índices dos cinco primeiros registros é 8551, 8550...85XX. Nenhuma transformação afeta o índice, lembra-se como não especificamos rótulos ele usa um intervalo numérico, mas esse intervalo é diferente da posições de um vetor, pois é um nome e vai acompanhar a linha independente da transformação.
+# Ao fazermos a ordenação dos dados com o método sort_values(), veja que os índices dos cinco primeiros registros é 8551, 8550...85XX. Nenhuma transformação afeta o índice, lembra-se como não especificamos rótulos ele usa um intervalo numérico, mas esse intervalo é diferente das posições de um vetor, pois é um nome e vai acompanhar a linha independente da transformação.
 
-# As únicas formas de alterar o índice são com os métodos reset_index() e set_index(). O primeiro redefine o índice usando o padrão e o segundo utiliza define novos índices. No codigo a seguir, estamos usando o método reset_index() para redefinir os índices padrão (sequência numérica). O primeiro parâmetro (drop=True), diz que não queremos usar o índice que será substituído em uma nova coluna, e inplace informa para gravar as alterações no próprio objeto. Na saída que agora os cinco primeiros registros, possuem índices de 0 a 4.
+# As únicas formas de alterar o índice são com os métodos reset_index() e set_index(). O primeiro redefine o índice usando o padrão e o segundo define novos índices. No codigo a seguir, estamos usando o método reset_index() para redefinir os índices padrão (sequência numérica). O primeiro parâmetro (drop=True), diz que não queremos usar o índice que será substituído em uma nova coluna, e inplace informa para gravar as alterações no próprio objeto. Na saída que agora os cinco primeiros registros, possuem índices de 0 a 4.
 
 df_selic.reset_index(drop=True, inplace=True)
 
@@ -313,7 +313,7 @@ teste3 = (df_selic['valor'] < 0.01) & (df_selic['data'] >= pd.to_datetime('2020-
 teste4 = (df_selic['valor'] < 0.01) | (df_selic['data'] >= pd.to_datetime('2020-01-01'))
 
 print("Resultado do AND:\n")
-print(teste4[:3])
+print(teste3[:3])
 
 print("\nResultado do OR:\n")
 print(teste4[:3])
@@ -422,7 +422,7 @@ df_selic.to_csv('dados_selic.csv')
 
 # No codigo a seguir serao feitos 2 exemplos, o primeiro uma conexão com um banco postgresql e outro com um banco mysql. A única diferença entre eles é a importação da biblioteca específica e a string de conexão. Dessa forma, ao estabelecer conexão com um banco de dados e armazenar a instância em uma variável, basta passá-la como parâmetro do método da biblioteca pandas.
 
-# import psycopg2
+import psycopg2
 
 host = 'XXXXX'
 port = 'XXXXX'
@@ -430,13 +430,13 @@ database = 'XXXXX'
 username = 'XXXXX'
 password = 'XXXXX'
 
-conn_str = fr"dbname='{database}' user='{username}' host='{host}' password='{password}' port='{port}'"
-# conn = psycopg2.connect(conn_str)
+conn_str = fr'dbname={database} user={username} password={password} host={host} port={port}'
+conn = psycopg2.connect(conn_str)
 
-query = "select * from XXX.YYYY"
-# df = pd.read_sql(query, conn)
+query = 'SELECT * FROM XXX.YYYY'
+df = pd.read_sql(query, conn)
 
-# import Mysql.connector
+import mysql.connector
 
 host = 'XXXXX'
 port = 'XXXXX'
@@ -444,8 +444,8 @@ database = 'XXXXX'
 username = 'XXXXX'
 password = 'XXXXX'
 
-conn_str = fr"host={host}, user={username}, passwd={password}, database={database}"
-# conn = mysql.connector.connect(host="localhost", user="root", passwd="", database="bd")
+conn_str = fr'host={host} port={port} database={database} user={username} password={password}'
+conn = mysql.connector.connect(host='localhost', user='root', password='', database='db')
 
-query = "select * from XXX.YYYY"
-# df = pd.read_sql(query, conn)
+query = 'SELECT * FROM XXX.YYYY'
+df = pd.read_sql(query, conn)
