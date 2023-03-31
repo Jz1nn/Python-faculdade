@@ -10,7 +10,7 @@
 # Para utilizar a biblioteca pandas é preciso fazer a instalação: pip install pandas.
 
 # Como uma ferramenta de alto nível, pandas possui duas estruturas de dados que são as principais para a análise/manipulação de dados: a Series e o DataFrame.
-# Uma Series é um como um vetor de dados (unidimencional), capaz de armazenar diferentes tipos de dados. Um DataFrame é conjunto de Series, ou como a documentação apresenta, um contêiner para Series.
+# Uma Series é um como um vetor de dados (unidimensional), capaz de armazenar diferentes tipos de dados. Um DataFrame é conjunto de Series, ou como a documentação apresenta, um contêiner para Series.
 # Ambas estruturas, possuem como grande característica, a indexação das linhas, ou seja, cada linha possui um rótulo (nome) que o identifica, o qual pode ser uma string, uma inteiro, um decimal ou uma data.
 # Uma Series possui somente "uma coluna" de informação e seus rótulos (índices). Um DataFrame pode ter uma ou mais colunas e além dos índices, também há um rótulo de identificação com o nome da coluna. Podemos comparar um DataFrame como uma planilha eletrônico, como o Excel (da Microsoft) ou o Calc (do Open Office).
 
@@ -90,7 +90,7 @@ series_dados.loc['111.111.111-11']
 # EXTRAINDO INFORMAÇÕES DE UMA SERIES
 # Estruturas de dados são utilizadas para armazenar dados e, diferentes estruturas possuem diferentes atributos e métodos. Com as estruturas de dados do pandas não é diferente, tais objetos possuem atributos e métodos específicos.
 
-# Sera criado uma série contando números e um valor nulo (None). As informações extraídas, são mais com relação a "forma" dos dados, portanto poderiam ser usadas independente do tipo de dado armazenado na Series, inclusive em um cenário de dados com diferentes tipos.
+# Sera criado uma série contendo números e um valor nulo (None). As informações extraídas, são mais com relação a "forma" dos dados, portanto poderiam ser usadas independente do tipo de dado armazenado na Series, inclusive em um cenário de dados com diferentes tipos.
 # Já as informações seguintes, como se tratam de funções matemáticas e estatísticas, podem fazer mais sentido quando utilizadas para tipos numéricos. No comentário a frente de cada comando diz o que ele faz.
 # Vale a pena ressaltar a diferença entre o atributo shape e o método count(). O primeiro verifica quantas linhas a Series possui (quantos índices), já o segundo, conta quantos dados não nulos existem.
 
@@ -109,7 +109,7 @@ print('Qual o desvio padrao?', series_dados.std()) # extrai o desvio padrao de u
 print('Qual a mediana?', series_dados.median()) # extrai a mediana de uma Series numerica
 
 print('\nResumo:\n', series_dados.describe()) # exibe um resumo sobre os dados na Series
-    # Quantidade de linhas =  (5,)
+    # Quantidade de linhas =  (5)
     # Tipo de dados float64
     # Os valores são únicos? True
     # Existem valores nulos? True
@@ -268,7 +268,7 @@ df_dados.head() # Exibe os 5 primeiros registros do DataFrame
 # Podemos realizar operações em colunas específicas de um DataFrame ou ainda criar um novo objeto contendo somente as colunas que serão usadas em uma determinada análise. Para selecionar uma coluna, as duas possíveis sintaxes são:
 
 # 1. nome_df.nome_coluna
-# 2. nome_cf[nome_coluna]
+# 2. nome_df[nome_coluna]
 
 # A primeira forma é familiar aos desenvolvedores que utilizam a linguagem SQL, porém ela não aceita colunas com espaços entre as palavras. Já a segunda aceita, se precisarmos selecionar mais do que uma coluna, então precisamos passar uma lista, da seguinte forma: nome_df[['col1', 'col2', 'col3']], se preferir a lista pode ser criada fora da seção e passada como parâmetro.
 
