@@ -1133,3 +1133,248 @@ print(f'Ano com menor arrecadacao = {ano_menor_arrecadacao}')
 print(f'Ano com maior arrecadacao = {ano_maior_arrecadacao}')
     # Ano com menor arrecadacao = 2017
     # Ano com maior arrecadacao = 2013
+
+
+### SESSÃO 3
+# BIBLIOTECAS E FUNÇÕES PARA CRIAÇÃO DE GRÁFICOS
+
+# Para criacao de graficos em Python, sao usadas as libs matplotlib e outras baseadas nela. Existem tambem funcoes que permitem criar e personalizar os graficos. Essas libs permitem a criacao de graficos, podendo ser estaticos (sem interacao) ou dinamicos (com interacao), como por exemplo responder a eventos de clique do mouse.
+
+
+# MATPLOTLIB
+# Diversas outras libs sao construidas a partir da matplotlib. A instalacao deve ser feita com o comando "pip install matplotlib", contendo o modulo 'pyplot', que permite criar e personalizar graficos. Existem duas sintaxes que sao adotadas para importar essa lib para o projeto:
+
+import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+
+# O apelido plt é uma convencao adotada para facilidar o uso das funcoes. Existem duas maneiras de usar a matplotlib:
+# 1. Deixar para o pyplot criar e gerenciar automaticamente as figuras e os eixos, e usar as funcoes do pyplot para plotagem.
+# 2. Criar explicitamente figuras e eixos e chamar metodos sobre eles.
+
+
+# FIGURA COM EIXO COMO VARIAVEL
+# Primeiro serao criados eixos de forma explicita (com atribuicao de uma variavel). Sera criada uma figura com 1 linha e 2 colunas (2 eixos). Pensando nos eixos como uma matriz, onde cada eixo é uma posicao que pode ter uma figura alocada.
+
+# IMPORTANTE: sobre um eixo (figura), podem ser plotados varios graficos. Para criar essa estrutura, é usada a sintaxe: fig, ax = plt.subplots(1, 2), onde fig e ax sao os nomes das viariaveis escolhidas. A variavel ax é do tipo 'array numpy', ou seja, os eixos sao uma matriz de conteineres para criar os plots. Como a figura possui 2 eixos, é necessario especificar em qual sera plotado, para isso é informado qual conteiner sera usado, por exemplo: ax[0] ou ax[1].
+
+# No codigo a seguir, sera criada uma figura com 1 linha e 2 colunas e o eixo que sera utilizado, tambem sera definido o tamanho das figuras por meio do parametro 'figsize'. Apos isso serao impressos algumas informacoes para entender o mecanismo do pyplot. ax é do tipo 'numpy.ndarray'.
+
+# Ao imprimir o conteudo de ax[0] e ax[1], é possivel ver as coordenadas alocadas para realizar a impressao da figura. Apos isso sao impressos 3 graficos sobre o primeiro eixo (posicionando uma figura do lado esquerdo), definindo os rotulos dos eixos, o titulo do grafico e a legenda (construida a partir do parametro 'label' na funcao plot()).
+
+# Apos isso, serao criados novos 3 graficos, mas agora sobre um segundo eixo (sendo posicionado uma figura do lado direito). Nesse novo conjunto de graficos, serao configuradas a aparencia das linhas, com os parametros 'r--' (red tracejado), 'b--' (blue tracejado) e 'g--' (green tracejado).
+
+import numpy as np
+
+x = range(5) # cria um array de 5 elementos
+x = np.array(x) # é necessario converter para um array numpy, caso contrario o plot nao consegue fazer operacoes
+
+fig, ax = plt.subplots(1, 2, figsize=(12, 5)) # cria uma figura com subplots: 1 linha, 2 colunas e eixos com tamanho 12x5
+
+print('Tipo de ax = ', type(ax)) # imprime o tipo da variavel ax
+print('Conteudo de ax[0] = ', ax[0]) # imprime o conteudo da variavel ax[0]
+print('Conteudo de ax[1] = ', ax[1]) # imprime o conteudo da variavel ax[1]
+
+ax[0].plot(x, x, label='eq_1') # cria um grafico com a funcao plot() e define a legenda
+ax[0].plot(x, x**2, label='eq_2') # cria um grafico com a funcao plot() e define a legenda
+ax[0].plot(x, x**3, label='eq_3') # cria um grafico com a funcao plot() e define a legenda
+ax[0].set_xlabel('Eixo x') # define o rotulo do eixo x
+ax[0].set_ylabel('Eixo y') # define o rotulo do eixo y
+ax[0].set_title('Grafico 1') # define o titulo do grafico
+ax[0].legend() # cria a legenda
+
+ax[1].plot(x, x, 'r--', label='eq_1') # cria um grafico com a funcao plot() e define a legenda
+ax[1].plot(x, x**2, 'b--', label='eq_2') # cria um grafico com a funcao plot() e define a legenda
+ax[1].plot(x, x**3, 'g--', label='eq_3') # cria um grafico com a funcao plot() e define a legenda
+ax[1].set_xlabel('Novo eixo x') # define o rotulo do eixo x
+ax[1].set_ylabel('Novo eixo y') # define o rotulo do eixo y
+ax[1].set_title('Grafico 2') # define o titulo do grafico
+ax[1].legend() # cria a legenda
+    # Tipo de ax =  <class 'numpy.ndarray'>
+    # Conteudo de ax[0] =  AxesSubplot(0.125,0.125;0.352273x0.755)
+    # Conteudo de ax[1] =  AxesSubplot(0.547727,0.125;0.352273x0.755)
+
+
+# FIGURA SEM EIXO COMO VARIAVEL
+# É possivel tambem criar uma figura sem atribuir o eixo a uma variavel. Nesse caso, é necessario usar a funcao plt.subplot(n_rows, n_cols2, plot_number) para definir onde sera plotado o grafico.
+
+# No codigo a seguir, sera criada uma figura, mas agora sem eixo e sem especificar o grid. Apos isso sera adicionado um subplot com 1 linha, 2 colunas e o primeiro grafico (121). O primeiro parametro do metodo subplot() é a quantidade de linhas, o segundo parametro é a quantidade de colunas e o terceiro parametro é o numero do plot dentro da figura, onde deve comecar por 1 e ir ate a quantidade de plots que se tem.
+# Como o eixo nao esta atribuido a nenhuma variavel, é usado o proprio pyplot para acessar a funcao plot(). Sera adicionado um subplot de 1 linha e 2 colunas a mesma figura, mas agora especificando que sera plotado a segunda figura (122).
+
+x = range(5) # cria um array de 5 elementos
+x = np.array(x) # é necessario converter para um array numpy, caso contrario o plot nao consegue fazer operacoes
+
+fig = plt.figure(figsize=(12, 5)) # cria uma figura com tamanho 12x5
+plt.subplot(121) # adiciona um grid de subplots a figura: 1 linha, 2 colunas - primeiro grafico
+plt.plot(x, x, label='eq_1') # cria um grafico com a funcao plot() e define a legenda
+plt.plot(x, x**2, label='eq_2') # cria um grafico com a funcao plot() e define a legenda
+plt.plot(x, x**3, label='eq_3') # cria um grafico com a funcao plot() e define a legenda
+plt.title('Grafico 1') # define o titulo do grafico
+plt.xlabel('Novo eixo x') # define o rotulo do eixo x
+plt.ylabel('Novo eixo y') # define o rotulo do eixo y
+plt.legend() # cria a legenda
+
+# Sera obtido o mesmo resultado do grafico anterior, porque foi criada a mesma estrutura com uma sintaxe diferente. Ao optar por utilizar eixos como variaveis ou nao, é preciso ficar atento somente as regras de sintaxe e as funcoes disponiveis para cada opcao.
+
+# 1. plt.subplots() é usado para criar um layout de figura e subplots.
+# 2. plt.subplot() é usado para adicionar um subplot a uma figura existente.
+
+
+# LIB PANDAS
+# As estruturas de dados Series e DataFrame possuem o metodo plot(), construido com base no matplotlib, permitindo criar graficos a partir dos dados nas estruturas. A seguir sera criado um DataFrame a partir de um dict, com a quantidade de alunos em 3 turmas distintas.
+
+import pandas as pd
+
+dados = {
+    'turma':['A', 'B', 'C'],
+    'qtde_alunos': [33, 50, 45]
+}
+df = pd.DataFrame(dados)
+df
+    #       turma  qtde_alunos
+    # 0      A           33
+    # 1      B           50
+    # 2      C           45
+
+# É possivel invocar o metodo df.plot(*args, **kwargs) para criar um grafico de barras a partir dos dados do DataFrame. Os argumentos dessa funcao podem variar, porem os mais comuns sao: os nomes das colunas com os dados para eixos x e y, bem como tipo de grafico (kind). No codigo a seguir, os valores da coluna 'turma' serao usados no x, da coluna 'qtde_alunos' no y e o tipo de grafico sera de barras (kind='bar'). Apos isso, os codigos serao repetidos, porem mudando o tipo de grafico para barra horizontal (kind='barh') e para linha (line).
+
+df.plot(x='turma', y='qtde_alunos', kind='bar')
+df.plot(x='turma', y='qtde_alunos', kind='barh')
+df.plot(x='turma', y='qtde_alunos', kind='line')
+
+# O grafico do tipo pizza (pie) é construido definindo como indice os dados que serao usados como legenda. No codigo a seguir, sera feita a transformacao do DF seguido do plot com o tipo pie. Esse tipo de sintaxe é chamado de encadeamento, porque ao inves de fazer a transformacao, salvar em um novo objeto e depois plotar, é feito tudo em uma unica linha, sem precisar criar um novo objeto.
+
+df.set_index('turma').plot(y='qtde_alunos', kind='pie')
+
+# Para esses graficos, a lib oferece uma segunda opcao de sintaxe, que é invocar o tipo de grafico como metodo, ex:
+# df.plot.bar(x='turma', y='qtde_alunos')
+# df.plot.line(x='turma', y='qtde_alunos')
+# df.set_index('turma').plot.pie(y='qtde_alunos')
+
+
+# A seguir, sera utilizado os dados sobre a exportação de etanol hidratado (barris equivalentes de petróleo) 2012-2020, disponível no endereço: https://www.anp.gov.br/arquivos/dadosabertos/iee/exportacao-etanol-hidratado-2012-2020-bep.csv, para analisar e extrairm informações de forma visual. Para conseguir utilizar o método plot nessa base, é necessario transformar a vírgula em ponto (padrão numérico) e converter os dados para os tipos float e int.
+
+df_etanol = pd.read_csv('exportacao-etanol-hidratado-2012-2020-bep.csv', sep=';', encoding='ISO-8859-1')
+
+# apaga colunas que nao sera usadas
+df_etanol.drop(columns=['PRODUTO', 'MOVIMENTO COMERCIAL', 'UNIDADE'], inplace=True)
+
+# substitui a virgula por ponto em cada coluna
+for mes in 'JAN FEV MAR ABR MAI JUN JUL AGO SET OUT NOV DEZ'.split():
+    df_etanol[mes] = df_etanol[mes].str.replace(',', '.')
+
+# converter o ano para inteiro
+df_etanol['ANO'] = df_etanol['ANO'].astype(int)
+
+# Com os dados corretos, é possivel usar os metodos de plotagem para, de forma visual, identificar o ano que teve menor e maior arrecadacao no mes de janeiro. No eixo x, sera usada a informacao de ano, e no y todos os valores da coluna 'JAN'. O tipo do grafico sera de barras (kind='bar'), a figura tera um tamanho de 10 polegadas na horizontal e 5 na vertical (figsize=(10, 5)), a legenda no eixo x nao deve ser rotacionada (rot=0), o tamanho das fontes da figura devem ser de 12px (fontsize=12) e o grafico nao tera legenda (legend=False).
+
+# Com o grafico, é possivel identificar que o ano que teve menor arrecadacao nesse mes (janeiro), foi 2017, e o maior foi 2013. O grafico tambem foi feito (plotado) em linhas, podendo explicar os dados por outra perspectiva: o comportamento da variacao de arrecadacao ao longo do tempo.
+
+df_etanol.plot(x='ANO',
+               y='JAN',
+               kind='bar',
+               figsize=(10, 5),
+                rot=0,
+                fontsize=12,
+                legend=False)
+
+df_etanol.plot(x='ANO',
+                y='JAN',
+                kind='line',
+                figsize=(10, 5),
+                rot=0,
+                fontsize=12,
+                legend=False)
+
+# Agora sera criado um grafico que possibilite comparar a arrecadacao entre os meses de janeiro e fevereiro. No codigo a seguir, sera selecionado 3 colunas do DF e encadeado o metodo plot(), agora passando como parametro somente o valor x, o tipo, o tamanho, a rotacao da legenda e o tamanho da fonte. Os valores do eixo y serao usados nas colunas. Essa construcao torna possivel avaliar visualmente o desempenho nos meses.
+
+df_etanol[['ANO', 'JAN', 'FEV']].plot(x='ANO', kind='bar', figsize=(10, 5), rot=0, fontsize=12)
+
+
+# LIB SEABORN
+# Essa é outra lib do Python, tambem baseada na matplotlib, desenvolvida especificamente para criar graficos. Deve ser instalada pelo comando: pip install seaborn, e para usar no projeto deve ser importada com o comando: import seaborn as sns.
+
+# Essa lib sera usada para carregar dados sobre gorjetas (tips) de um restaurante. No codigo a seguir, sera usada a funcao load_dataset(), que retorna um Df pandas para carregar a base de dados. Apos isso, sera impresso algumas informacoes basicas que foram carregadas, contendo 244 linhas e 7 colunas, cujos dados sao do tipo float64, categoricos e um inteiro.
+
+import seaborn as sns
+
+# configuracao do visual do grafico
+sns.set(style='whitegrid') # opcoes: darkgrid, whitegrid, dark, white, ticks
+
+df_tips = sns.load_dataset('tips')
+print(df_tips.info())
+df_tips.head()
+    # <class 'pandas.core.frame.DataFrame'>
+    # RangeIndex: 244 entries, 0 to 243
+    # Data columns (total 7 columns):
+    # total_bill    244 non-null float64
+    # tip           244 non-null float64
+    # sex           244 non-null object
+    # smoker        244 non-null object
+    # day           244 non-null object
+    # time          244 non-null object
+    # size          244 non-null int64
+    # dtypes: float64(2), int64(1), object(4)
+    # memory usage: 13.5+ KB
+    # None
+    # 	total_bill	tip	sex	smoker	day	time	size
+    # 0	16.99	1.01	Female	No	Sun	Dinner	2
+    # 1	10.34	1.66	Male	No	Sun	Dinner	3
+    # 2	21.01	3.50	Male	No	Sun	Dinner	3
+    # 3	23.68	3.31	Male	No	Sun	Dinner	2
+    # 4	24.59	3.61	Female	No	Sun	Dinner	4    
+
+# O tipo de dado que uma coluna possui é importante para a lib seaborn, porque as funcoes usadas para construir os graficos sao separadas em grupos: relacional, categorico, distribuicao, regressao, matriz e grids.
+
+
+# FUNCAO BARPLOT()
+# Dentro das funcoes para graficos de variaveis categoricas, existe o barplot(), que permite criar graficos de barras. Esta, contendo mais opcoes de parametros que a lib pandas. O construtor da funcao barplot possui: seaborn.barplot(x=None, y=None, hue=None, data=None, order=None, hue_order=None, estimator=<function mean at 0x0000020B0B0B8D38>, ci=95, n_boot=1000, units=None, seed=None, orient=None, color=None, palette=None, saturation=0.75, errcolor='.26', errwidth=None, capsize=None, dodge=True, ax=None, **kwargs)
+
+# Esse construtor possui varios parametros estatisticos que dao flexibilidade e poder aos cientistas de dados. FAlando sobre o parametro "estimator", ele possui por defalt a funcao media, isso significa que para cada barra do grafico, sera exibido a media dos valores de uma determinada coluna, podendo nao fazer sentido, ja que pretendemos exibir a quantidade dos valores (len) ou a soma (sum).
+
+# A seguir, sera exemplificado como esse parametro pode afetar a construcao do grafico. Sera usado o matplotlib para construir uma figura de 1 eixo e 3 posicoes, o primeiro grafico de barras utiliza o estimator padrao (media), o segundo usa a funcao de soma como estimator, e o terceiro a funcao len.
+
+# Os resultados dos graficos sao diferentes: o primeiro diz que o valor medio da conta entre homens e mulheres é proximo, embora homens gastem pouco a mais. O segundo grafico diz que os homens gastam mais que as mulheres, porém apesar da soma da conta dos homens ser maior que a soma das mulheres, existem mais hones que mulheres. O terceiro mostra isso, quantos homens e mulheres foram ao restaurante.
+
+fig, ax = plt.subplots(1, 3, figsize=(15, 5))
+
+sns.barplot(data=df_tips, x='sex', y='total_bill', ax=ax[0])
+sns.barplot(data=df_tips, x='sex', y='total_bill', ax=ax[1], estimator=sum)
+sns.barplot(data=df_tips, x='sex', y='total_bill', ax=ax[2], estimator=len)
+
+# No codigo a seguir, sera criado um grafico na 3 linha, mas sera configurado o tamanho, portanto configuramos os rotulos e tamanhos.
+
+plt.figure(figsize=(10, 5))
+
+ax = sns.barplot(x='day', y='total_bill', data=df_tips)
+
+ax.axes.set_title('Valor media diaria', fontsize=14)
+ax.set_xlabel('Dia', fontsize=14)
+ax.set_ylabel('Valor media', fontsize=14)
+ax.tick_params(labelsize=14)
+
+
+# FUNCAO COUNTPLOT()
+# É possivel plotar a contagem de uma variavel categorica com a funcao barplot e o estimator len, porem a lib seaborn possui uma funcao especifica para esse tipo de grafico: seaborn.countplot(x=None, y=None, hue=None, data=None, order=None, hue_order=None, orient=None, color=None, palette=None, saturation=0.75, dodge=True, ax=None, **kwargs).
+
+# Esse metodo nao aceita que sejam passados valores de x e y ao mesmo tempo, pois a contagem é feita sobre uma variavel categorica, portando é necessafio especificar x ou y (a diferenca sera na orientacao do grafico). Se informar x, o grafico sera na vertical, se for y, o grafico sera na horizontal.
+
+plt.figure(figsize=(10, 5))
+sns.countplot(data=df_tips, x='day')
+
+# O parametro 'hue' é usado como entrada de dados, serve para discriminar no grafico a variavel atribuida ao parametro. A seguir, sera plotada a quantidade de pessoas por dia, mas discriminado por genero, quantos homens e mulheres estiveram presentes em cada dia. No codigo a seguir, a unica diferenca é o parametro.
+
+plt.figure(figsize=(10, 5))
+sns.countplot(data=df_tips, x='day', hue='sex')
+
+
+# FUNCAO SCARTTERPLOT()
+# Graficos do grupo relacional, permitem avaliar de forma visual a relacao entre 2 variaveis: x e y. A funcao possui a sintaxe: seaborn.scatterplot(x=None, y=None, hue=None, style=None, size=None, data=None, palette=None, hue_order=None, hue_norm=None, sizes=None, size_order=None, size_norm=None, markers=True, style_order=None, x_bins=None, y_bins=None, units=None, estimator=None, ci=95, n_boot=1000, alpha='auto', x_jitter=None, y_jitter=None, legend='brief', ax=None, **kwargs)
+
+# Sera construido um grafico que permite avaliar se existe uma relacao entre o valor da conta e a gorjeta. No codigo a seguir, sera invocado a funcao passando o valor da conta como parametro para x e a gorjeta para y. Sera avaliado o resultado: cada bolinha representa uma conta paga e uma gorjeta, ex: a bolinha mais a direita, é possivel interpretar que para uma conta de aprox 50 dolares, a gorjeta foi de 10 dolares.
+
+# De acordo com o grafico, quanto maior o valor da conta, maior o valor da gorjeta. Esse comportamento chama-se relacao linear, pois é possivel tracar uma reta entre os pontos, descrevendo o comportamento por uma funcao linear.
+
+plt.figure(figsize=(10, 5))
+sns.scatterplot(data=df_tips, x='total_bill', y='tip')
+
+# O gráfico scatterplot é muito utilizado por cientistas de dados que estão buscando por padrões nos dados. O padrão observado no gráfico, que mostra a relação entre o valor da conta e da gorjeta, pode ser um forte indício que, caso o cientista precise escolher um algoritmo de aprendizado de máquina para prever a quantidade de gorjeta que um cliente dará, ele poderá uma regressão linear.
