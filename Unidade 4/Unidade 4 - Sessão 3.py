@@ -157,7 +157,7 @@ df_etanol.plot(x='ANO',
                 fontsize=12,
                 legend=False)
 
-# Queremos criar um gráfico, que nos possibilite comparar a arrecadação entre os meses de janeiro e fevereiro. Estamos selecionando três colunas do nosso DF e encadeando o método plot(), agora passando como parâmetro somente o valor x, o tipo, o tamanho, a rotação da legenda e o tamanho da fonte. Os valores para o eixo y, serão usados das colunas. Com essa construção se torna possível avaliar, visualmente, o desempenho nos meses. Veja que em determinados anos, a discrepância entre eles é consideravel.
+# Queremos criar um gráfico, que nos possibilite comparar a arrecadação entre os meses de janeiro e fevereiro. Estamos selecionando três colunas do nosso DF e encadeando o método plot(), agora passando como parâmetro somente o valor x, o tipo, o tamanho, a rotação da legenda e o tamanho da fonte. Os valores para o eixo y, serão usados nas colunas. Com essa construção se torna possível avaliar, visualmente, o desempenho nos meses. Veja que em determinados anos, a discrepância entre eles é consideravel.
 
 df_etanol[['ANO', 'JAN', 'FEV']].plot(x='ANO', kind='bar', figsize=(10, 5), rot=0, fontsize=12)
 
@@ -235,7 +235,7 @@ ax.tick_params(labelsize=14)
 plt.figure(figsize=(10, 5))
 sns.countplot(data=df_tips, x="day")
 
-# Vamos plotar mais um gráfico de contagem para mostrar o poder de um único parâmetro. O parâmetro hue é usado como entrada de dados, pois irá discriminar no gráfico a variável atribuída ao parâmetro. Para entendermos, vamos plotar a quantidade de pessoas por dia, mas discriminado por genêro, quantos homens e mulheres estiveram presentes em cada dia? No código a seguir, a única diferença é o parâmetro.
+# Vamos plotar mais um gráfico de contagem para mostrar o poder de um único parâmetro. O parâmetro hue é usado como entrada de dados, pois irá discriminar no gráfico a variável atribuída ao parâmetro. Para entendermos, vamos plotar a quantidade de pessoas por dia, mas discriminado por genero, quantos homens e mulheres estiveram presentes em cada dia? No código a seguir, a única diferença é o parâmetro.
 
 plt.figure(figsize=(10, 5))
 sns.countplot(data=df_tips, x="day", hue="sex")
