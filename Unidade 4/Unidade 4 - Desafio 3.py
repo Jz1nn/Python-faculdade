@@ -79,9 +79,9 @@ plt.xticks(rotation=90)
 plt.tick_params(labelsize=12)
 sns.countplot(data=df_satelites_estrangeiros, x='Operadora Comercial')
 
-# Agora vamos plotar quantos satélites estrangeiros estão operando em cada banda.
+# Por ultimo sera plotado quantos satelites estrangeiros estao operando em cada banda.
 
-# quantos satelites brasileiros estao operando em cada banda?
+# quantos satelites estrangeiros estao operando em cada banda?
 
 plt.figure(figsize=(15, 5))
 plt.xticks(rotation=90)
