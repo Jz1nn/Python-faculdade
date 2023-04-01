@@ -1378,3 +1378,93 @@ plt.figure(figsize=(10, 5))
 sns.scatterplot(data=df_tips, x='total_bill', y='tip')
 
 # O gráfico scatterplot é muito utilizado por cientistas de dados que estão buscando por padrões nos dados. O padrão observado no gráfico, que mostra a relação entre o valor da conta e da gorjeta, pode ser um forte indício que, caso o cientista precise escolher um algoritmo de aprendizado de máquina para prever a quantidade de gorjeta que um cliente dará, ele poderá uma regressão linear.
+
+
+# DESAFIO
+# As bibliotecas pandas, matplotlib e seaborn podem ser utilizadas para o carregamento dos dados e a geração dos gráficos.
+
+# Como desenvolvedor em uma empresa de consultoria de software, você foi alocado em um projeto para uma empresa de telecomunicações. Essa empresa tem interesse em habilitar um novo serviço, mas antes precisa entender qual a disponibilidade dos satélites autorizados a operar no Brasil. Para a primeira sprint (período de 15 dias de trabalho), você foi encarregado de apresentar, uma análise preliminar da situação dos satélites.
+
+# Nessa primeira entrega, você deve apresentar a comparação da quantidade de satélites que são brasileiros, dos que são estrangeiros. Dentre os satélites brasileiros, você deve discriminar a quantidade de cada operadora comercial, bem como a quantidade de satélites operando em cada banda. As mesmas análises devem ser feitas para os satélites que pertencem a outros países.
+
+# Onde esses dados podem ser encontrados?
+# Qual a melhor forma de apresentar os resultados, basta levar os números?
+# Qual biblioteca pode ser usada para resolver o desafio?
+
+
+# RESOLUCAO
+# No endereço https://www.dados.gov.br/dataset, existe uma categoria específica para esse tipo de informação: Agência Nacional de Telecomunicações - Anatel. Dentro dessa categoria encontramos um arquivo delimitado (csv) com a relação de satélites autorizados a operar no Brasil: https://www.dados.gov.br/dataset/relacao-de-satelites-geoestacionarios-autorizados-a-operar-no-brasil, basta clicar no recurso e fazer download para a pasta do projeto.
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Os dados serao carregados em um DF pandas, chamado df_satelites. Os dados sao delimitados por ponto e virgula (deve ser informado o metodo read_csv). É necessario tambem que as linhas duplicadas sejam removidas e que os indices sejam resetados.
+
+df_satelites = pd.read_csv('satelites_operando_comercialmente.csv', sep=';')
+df_satelites.drop_duplicates(inplace=True)
+df_satelites.reset_index(drop=True, inplace=True)
+
+print(df_satelites.info())
+df_satelites.head()
+    # <class 'pandas.core.frame.DataFrame'>
+    # RangeIndex: 68 entries, 0 to 67
+    # Data columns (total 7 columns):
+    # Satelite operando      68 non-null object
+    # Órbita                 68 non-null object
+    # Bandas                 68 non-null object
+    # Status do Satélite     68 non-null object
+    # Pos. Orbital           68 non-null object
+    # Direito                68 non-null object
+    # Operadora Comercial    68 non-null object
+    # dtypes: object(7)
+    # memory usage: 3.8+ KB
+    # None
+
+# Agora sera criado um grafico par afazer a contagem e fazer a comparacao entre a quantidade de satelites brasileiros e estrangeiros visualmente. Sera usado o countplot() passando como parametros o DF e a coluna 'Direito' como variavel categorica a ser contada. Sera usado tambem alguns recursos da lib matplotlib para configurar o tamanho da figura e dos textos nos eixos.
+
+# quantos satelites sao brasileiros e quantos sao estrangeiros?
+
+plt.figure(figsize=(5, 3))
+plt.tick_params(labelsize=12)
+sns.countplot(data=df_satelites, x='Direito')
+
+# Agora serao extraidas as informacoes sobre os satelites brasileiros. Sera criado um novo DF e aplicar o filtro (df_satelites_brasileiros). Agora é possivel usar o countplot() nesse novo DF (brasileiros) para contar quantos satelites cada operadora comercial possui no Brasil. Como o nome das operadoras é longo, sera exibido na vertical (sera configurada a rotacao do 'xticks' para 90 graus). Apos isso sera configurado o tamanho dos textos nos eixos.
+
+# quantos satelites cada operadora brasileira possui operando?
+
+df_satelites_brasileiros = df_satelites[df_satelites['Direito'] == 'Brasil']
+
+plt.figure(figsize=(15, 5))
+plt.xticks(rotation=90)
+plt.tick_params(labelsize=12)
+sns.countplot(data=df_satelites_brasileiros, x='Operadora Comercial')
+
+# Para saber quantos satelites brasileiros estao operando em cada banda, sera usado o countplot novamente, passando como parametro o df_satelites_brasileiros e a coluna 'Bandas' como variavel.
+
+# quantos satelites brasileiros estao operando em cada banda?
+
+plt.figure(figsize=(15, 5))
+plt.xticks(rotation=90)
+plt.tick_params(labelsize=12)
+sns.countplot(data=df_satelites_brasileiros, x='Bandas')
+
+# Agora sera feito o mesmo processo para os satelites estrangeiros, comecando pela criacao de um DF que contenha somente as informacoes sobre eles. O primeiro grafico mostra quantos satelites cada operadora estrangeira possui operando.
+
+# quantos satelites cada operadora estrangeira possui operando?
+
+df_satelites_estrangeiros = df_satelites.loc[df_satelites['Direito'] == 'Estrangeiro']
+
+plt.figure(figsize=(15, 5))
+plt.xticks(rotation=90)
+plt.tick_params(labelsize=12)
+sns.countplot(data=df_satelites_estrangeiros, x='Operadora Comercial')
+
+# Por ultimo sera plotado quantos satelites estrangeiros estao operando em cada banda.
+
+# quantos satelites estrangeiros estao operando em cada banda?
+
+plt.figure(figsize=(15, 5))
+plt.xticks(rotation=90)
+plt.tick_params(labelsize=12)
+sns.countplot(data=df_satelites_estrangeiros, x='Bandas')
