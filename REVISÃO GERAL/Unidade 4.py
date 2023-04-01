@@ -944,3 +944,192 @@ conn = mysql.connector.connect(host='localhost', user='root', password='', datab
 
 query = 'SELECT * FROM XXX.YYYY'
 df = pd.read_sql(query, conn)
+
+
+# DESAFIO
+# A biblioteca pandas possui métodos capazes de fazer a leitura dos dados e o carregamento em um DataFrame, além de recursos como a aplicação de filtros.
+
+# Como desenvolvedor em uma empresa de consultoria de software, você foi alocado em um projeto para uma empresa de geração de energia. Essa empresa tem interesse em criar uma solução que acompanhe as exportações de etanol no Brasil. Esse tipo de informação está disponível no site do governo brasileiro http://www.dados.gov.br/dataset, em formatos CSV, JSON, dentre outros.
+
+# No endereço http://www.dados.gov.br/dataset/importacoes-e-exportacoes-de-etanol é possível encontrar várias bases de dados (datasets), contendo informações de importação e exportação de etanol. O cliente está interessado em obter informações sobre a Exportação Etano Hidratado (barris equivalentes de petróleo) 2012-2020, cujo endereço é http://www.dados.gov.br/dataset/importacoes-e-exportacoes-de-etanol/resource/ca6a2afe-def5-4986-babc-b5e9875d39a5. Para a análise será necessário fazer o download do arquivo.
+
+# O cliente deseja uma solução que extraia as seguintes informações:
+
+# Em cada ano, qual o menor e o maior valor arrecadado da exportação?
+# Considerando o período de 2012 a 2019, qual a média mensal de arrecadamento com a exportação.
+# Considerando o período de 2012 a 2019, qual ano teve o menor arrecadamento? E o maior?
+# Como parte das informações técnicas sobre o arquivo, foi lhe informado que se trata de um arquivo delimitado CSV, cujo separador de campos é ponto-e-vírgula e a codificação do arquivo está em ISO-8859-1. Como podemos obter o arquivo? Como podemos extrair essas informações usando a linguagem Python? Serão necessários transformações nos dados para obtermos as informações solicitadas?
+
+
+# RESOLUCAO
+# Primeiro é necessario fazer o download do arquivo com os dados. Acessando o endereço http://www.dados.gov.br/dataset/importacoes-e-exportacoes-de-etanol/resource/ca6a2afe-def5-4986-babc-b5e9875d39a5 e clicar no botão "ir para recurso". Apos obter o arquivo, basta salvar na pasta de trabalho.
+
+# Conforme informado, o aquivo é delimitado, mas o separador padrao é o ; e sua codificacao foi feita em ISO-8859-1. Portanto sera necessario passar esses 2 parametros para  aleitura do arquivo com a lib pandas (o padrao da lib é a virgula e a codificacao utf-8).
+
+import pandas as pd
+
+df_etanol = pd.read_csv('exportacao-etanol-hidratado-2012-2020-bep.csv', sep=';', encoding='ISO-8859-1')
+
+print(df_etanol.info())
+df_etanol.head(2)
+    # <class 'pandas.core.frame.DataFrame'>
+    # RangeIndex: 9 entries, 0 to 8
+    # Data columns (total 17 columns):
+    # ANO                    9 non-null int64
+    # PRODUTO                9 non-null object
+    # MOVIMENTO COMERCIAL    9 non-null object
+    # UNIDADE                9 non-null object
+    # JAN                    9 non-null object
+    # FEV                    9 non-null object
+    # MAR                    9 non-null object
+    # ABR                    9 non-null object
+    # MAI                    8 non-null object
+    # JUN                    8 non-null object
+    # JUL                    8 non-null object
+    # AGO                    8 non-null object
+    # SET                    8 non-null object
+    # OUT                    8 non-null object
+    # NOV                    8 non-null object
+    # DEZ                    8 non-null object
+    # TOTAL                  9 non-null object
+    # dtypes: int64(1), object(16)
+    # memory usage: 1.3+ KB
+    # None
+
+# Com os dados, a solucao do problema sera dividida em 2 partes: transformacao dos dados e exportacao das informacoes.
+
+# TRANSFORMACAO DOS DADOS
+# Primeiro serao removidas as colunas que nao serao utilizadas (quanto menos dados na memoria RAM, melhor). No codigo a seguir, é feita a remocao de 3 colunas, com o parametro inplace=True, para que a alteracao seja feita no proprio DataFrame.
+
+df_etanol.drop(['PRODUTO', 'MOVIMENTO COMERCIAL', 'UNIDADE'], inplace=True)
+
+# Agora serao redefinidos os indices do DF, usando a coluna ANO como referencia. Essa coluna tambem sera removida do DF (drop=True).
+
+df_etanol.set_index('ANO', inplace=True)
+
+# Os dados sao de origem brasileira (usando a virgula como separador decimal), porem nao condiz com o padrao da lib pandas. Portanto, sera necessario fazer a conversao dos dados para o padrao americano (usando o ponto como separador decimal). Para fazer isso, sera usada uma estrutura de repeticao para filtrar cada coluna, criando uma Series (habilitando usar a funcionalidade str.replace('.','').
+
+for mes in 'JAN FEV MAR ABR MAI JUN JUL AGO SET OUT NOV DEZ'.split():
+    df_etanol[mes] = df_etanol[mes].str.replace('.','')
+
+print(df_etanol.dtypes)
+df_etanol.head(2)
+    # JAN      object
+    # FEV      object
+    # MAR      object
+    # ABR      object
+    # MAI      object
+    # JUN      object
+    # JUL      object
+    # AGO      object
+    # SET      object
+    # OUT      object
+    # NOV      object
+    # DEZ      object
+    # TOTAL    object
+    # dtype: object
+
+# Apesar de trocar a virgula por ponto, os dados ainda estao como string. Entao, sera usado o metodo astype() para converter os dados para float.
+
+df_etanol = df_etanol.astype(float)
+print(df_etanol.dtypes)
+df_etanol.head(2)
+    # JAN      float64
+    # FEV      float64
+    # MAR      float64
+    # ABR      float64
+    # MAI      float64
+    # JUN      float64
+    # JUL      float64
+    # AGO      float64
+    # SET      float64
+    # OUT      float64
+    # NOV      float64
+    # DEZ      float64
+    # TOTAL    float64
+    # dtype: object
+
+# EXTRACAO DE INFORMACOES
+# Com os dados preparados, sera possivel extrair as informacoes solicitadas. Primeiro sera extraido o menor e maior valor arrecadado em cada ano, como o indice é o proprio ano, é possivel usar a funcao loc para filtrar, e depois os metodos min() e max(). Para que a extracao seja feita em todos os danos, sera usada uma estrutura de repeticao.
+
+# Nas linhas de exibicao do resultado, os comandos "{minimo:,.0f}".replace(',', '.')" e "{maximo:,.0f}".replace(',', '.')" faz com que seja formatada a exibicao dos dados, trocando a virgula por ponto e removendo os zeros a direita.
+
+# Em cada ano, qual o menor e o maior valor arrecadado da exportacao?
+for ano in range(2012, 2021):
+    ano_info = df_etanol.loc[ano]
+    minimo = ano_info.min()
+    maximo = ano_info.max()
+    print(f'Ano = {ano}')
+    print(f'Menor valor = {minimo:,.0f}'.replace(',', '.'))
+    print(f'Maior valor = {maximo:,.0f}'.replace(',', '.'))
+    print('--------')
+        # Ano = 2012
+        # Menor valor = 87.231
+        # Maior valor = 4.078.157
+        # --------
+        # Ano = 2013
+        # Menor valor = 54.390
+        # Maior valor = 4.168.543
+        # --------
+        # Ano = 2014
+        # Menor valor = 74.303
+        # Maior valor = 2.406.110
+        # --------
+        # Ano = 2015
+        # Menor valor = 31.641
+        # Maior valor = 3.140.140
+        # --------
+        # Ano = 2016
+        # Menor valor = 75.274
+        # Maior valor = 3.394.362
+        # --------
+        # Ano = 2017
+        # Menor valor = 2.664
+        # Maior valor = 1.337.427
+        # --------
+        # Ano = 2018
+        # Menor valor = 4.249
+        # Maior valor = 2.309.985
+        # --------
+        # Ano = 2019
+        # Menor valor = 14.902
+        # Maior valor = 2.316.773
+        # --------
+        # Ano = 2020
+        # Menor valor = 83.838
+        # Maior valor = 298.194
+        # --------
+
+# Agora sera extraida a media mensal, considerando o periodo de 2012 a 2019. Sera usado o loc para filtrar os anos, e para cada coluna extrair a media. Sera feita a extracao dentro de uma repeticao (mes a mes). O resultado sera impresso, fazendo uma formatacao de saida.
+
+# considerando o periodo de 2012 a 2019, qual a media mensal de arrecadacao da exportacao?
+
+print('Media mensal de rendimentos:')
+for mes in 'JAN FEV MAR ABR MAI JUN JUL AGO SET OUT NOV DEZ'.split():
+    media = df_etanol.loc[2012:2019, mes].mean()
+    print(f'{mes} = {media:,.0f}'.replace(',', '.'))
+        # Média mensal de rendimentos:
+        # JAN = 248.380
+        # FEV = 210.858
+        # MAR = 135.155
+        # ABR = 58.929
+        # MAI = 106.013
+        # JUN = 244.645
+        # JUL = 295.802
+        # AGO = 276.539
+        # SET = 354.454
+        # OUT = 376.826
+        # NOV = 266.748
+        # DEZ = 319.588    
+
+# Agora para descobrir qual ano teve a menor e maior quantia em exportacao (2012 a 2019), sera usado o metodo idxmin() e idxmax().
+
+# Qual o ano que teve a menor e a maior quantia em exportacao (2012 a 2019)?
+
+ano_menor_arrecadacao = df_etanol.loc[2012:2019, 'TOTAL'].idxmin()
+ano_maior_arrecadacao = df_etanol.loc[2012:2019, 'TOTAL'].idxmax()
+
+print(f'Ano com menor arrecadacao = {ano_menor_arrecadacao}')
+print(f'Ano com maior arrecadacao = {ano_maior_arrecadacao}')
+    # Ano com menor arrecadacao = 2017
+    # Ano com maior arrecadacao = 2013
