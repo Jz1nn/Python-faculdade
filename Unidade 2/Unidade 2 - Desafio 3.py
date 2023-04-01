@@ -1,6 +1,6 @@
 # ENUNCIADO
 
-# Diante da solução feita na Sessão 2.1 onde foi feito o dedup em uma lista de CPFs, retornar somente parte numérica do CPF e verificar se eles possuem 11 dígitos. Agora a lista de CPFs deve ser organizada de forma crescente para facilitar o cadastro. A lista de CPFs pode crescer exponencialmente, escolher os algoritmos mais adequados é importante nesse caso.
+# Diante da solução feita no Desafio 2 onde foi feito o dedup em uma lista de CPFs, retornar somente parte numérica do CPF e verificar se eles possuem 11 dígitos. Agora a lista de CPFs deve ser organizada de forma crescente para facilitar o cadastro. A lista de CPFs pode crescer exponencialmente, escolher os algoritmos mais adequados é importante nesse caso.
 
 # DEVERÁ SER FEITO:
 # Realizar as transformações de limpeza e validação nos CPFs (remover ponto e traço, verificar se tem 11 dígitos e não deixar valores duplicados).
