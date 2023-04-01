@@ -53,8 +53,6 @@ print(lista)
 # Nesse caso, a atribuição é feita de maneira posicional:
 # O primeiro valor após o sinal de igualdade vai para a primeira variável, e assim por diante.
 
-
-
 lista = [5, -1]
 
 if lista[0] > lista[1]:
@@ -208,7 +206,7 @@ print(lista_ordenada3)
 # Inicializamos a variável j, com a posição anterior ao valor a ser inserido.
 # Criamos a segunda estrutura de repetição com while, pois não sabemos quantas casas vamos ter de percorrer até encontrar a posição correta de inserção.
 # O loop acontecerá enquanto houver elementos para comparar (j >= 0) e o valor da posição anterior (lista[j]) for maior que o valor a ser inserido.
-# Enquanto essas condições acontecerem, os valores já existentes vão sendo "passados para frente" (linha 8) e j vai decrementando. Quando a posição for encontrada, o valor é inserido.
+# Enquanto essas condições acontecerem, os valores já existentes vão sendo "passados para frente" e j vai decrementando. Quando a posição for encontrada, o valor é inserido.
 
 # Para todas as ordenações que fizemos até o momento, o tempo de execução foi instantâneo, pois as listas eram pequenas. E, se tivéssemos que ordenar uma lista com muitos valores, certamente perceberíamos uma lentidão na performance. Para suprir essa necessidade, existem algoritmos que, embora performem melhor, demandam um pouco mais de complexidade na implementação.
 
