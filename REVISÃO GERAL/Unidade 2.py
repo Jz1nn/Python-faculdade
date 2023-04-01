@@ -938,3 +938,413 @@ else:
 
 
 # DESAFIO
+# DEDUP = deduplicação de dados, consiste em eliminar registros duplicados dos dados.
+
+# Implementar uma solução que receba uma lista de CPFs, aplique a transformação "dedup" e retorne apenas a parte numérica dos CPFs. Verificar se os CPFs possuem 11 dígitos e eliminar aqueles que não possuem. Para realizar a deduplicação, você precisa escolher entre um algoritmo de busca linear ou binária. Também é necessário remover os caracteres ponto (.) e traço (-) que frequentemente aparecem nos CPFs antes de verificar se eles possuem 11 dígitos.
+
+# RESOLUÇÃO
+# Sera utilizado o algoritmo de busca linear, porque nao é possivel garantir que os CPFs estejam ordenados (exigencia da busca binaria). CPFs possuem numeros, traco e pontos, entao serao tratados como 'strings' para poder usar a funcao 'replace()' e trocar um caractere por outro. Sera usada a funcao len() para verificar se o CPF possui 11 digitos.
+
+# Algoritmo de busca linear:
+def executar_busca_linear(lista, valor):
+    tamanho_lista = len(lista)
+    for i in range(tamanho_lista):
+        if valor == lista[i]:
+            return True
+    return False
+
+# Funcao que faz o dedup e os tratamentos do cpf:
+def criar_lista_dedup(lista):
+    lista_dedup = []
+    for cpf in lista:
+        cpf = str(cpf)
+        cpf = cpf.replace('-', '').replace('.', '')
+        if len(cpf) == 11:
+            if not executar_busca_linear(lista_dedup, cpf):
+                lista_dedup.append(cpf)
+
+    return lista_dedup
+
+# Funcao teste:
+def testar_funcao(lista_cpfs):
+    lista_dedup = criar_lista_dedup(lista_cpfs)
+    print(lista_dedup)
+
+lista_cpfs = ['111.111.111-11', '11111111111', '222.222.222-22', '333.333.333-33', '22222222222', '444.44444']
+testar_funcao(lista_cpfs)
+    # ['11111111111', '22222222222', '33333333333']
+
+# Primeiro foi implementado a funcao de busca linear, onde recebe uma lista e um valor a ser procurado. Nele, toda a lista é percorrida ate encontrar (ou nao) o valor.
+# Na segunda solucao, foi implementada a funcao que faz ajustar o CPF, que valida seu tamanho e faz o dedup.
+
+# Foi criada uma estrutura de dados (tipo lista) vazia. Essa lista ira armazenar os valores unicos dos CPFs. Depois foi criado a estrutura de repeticao, que percorre cada CPF da lista original. Foi feita tambem a conversao forcada do CPF para o tipo string, pois ao percorrer a lista, cada elemento pode ser um tipo diferente.
+
+# Foi usado o encadeamento da funcao replace para substituir os caracteres ponto e traco por nada. Apos isso foi chegado se o tamanho do CPF é 11, caso nao seja, nada acontece e o loop passa para a proxima iteracao.
+# Entao, foi invocada a funcao de busca, passando como parametro a lista_dedup e o CPF. Essa funcao procura na lista o valor, caso encontre, retorna True, caso nao encontre, retorna False. Queremos os falsos, porque quer dizer que o CPF ainda nao esta na lista correta (por isso foi usado o 'if not').
+
+# Apos isso, foi adicionada à lista_dedup o CPF, ja validado, transformado e com garantia de que nao esta duplicado. Por ultimo, foi feito apenas o teste. Diante a lista ficticia de CPFs, a funcao retorna uma lista com os CPFs validos e sem duplicacao.
+
+
+### SESSÃO 3
+# ALGORITMOS DE ORDENAÇÃO
+
+# Existem duas formas que permitem ordenar uma sequência presente nos objetos da classe list.
+# Função built-in sorted() e o método sort().
+
+lista = [10, 4, 1, 15, -3]
+
+lista_ordenada1 = sorted(lista)
+lista_ordenada2 = lista.sort()
+
+print('lista = ', lista, '\n')
+print('lista_ordenada1 = ', lista_ordenada1)
+print('lista_ordenada2 = ', lista_ordenada2)
+print('lista = ', lista)
+    # lista =  [-3, 1, 4, 10, 15]
+
+    # lista_ordenada1 =  [-3, 1, 4, 10, 15]
+    # lista_ordenada2 =  None
+    # lista =  [-3, 1, 4, 10, 15]
+
+# A funcao sorted() retorna uma nova lista ordenada, sem alterar a lista original. O metodo sort() ordena a lista original, sem retornar nada.
+# Logo, concluímos que:
+# 1) a função built-in sorted() não altera a lista original e faz a ordenação em uma nova lista;
+# 2) o método sort() faz a ordenação na lista original com retorno None.
+
+# Os algoritmos de ordenacao consistem em comparar 2 valores, verificar qual é menor e colocar na posicao correta, o que muda é como e quando a comparacao é feita.
+
+lista = [7, 4]
+if lista[0] > lista[1]:
+    aux = lista[1]
+    lista[1] = lista[0]
+    lista[0] = aux
+
+print(lista)
+    # [4, 7]
+
+# O codigo consistem em comparar um valor e seu vizinho, caso o valor da posicao a frente seja menor, deve ser feita a troca das posicoes. Para fazer a troca foi feito usando uma variavel auxiliar criada para guardar temporariamente um dos valores (nesse caso guardando o menor). Entao foi colocado o valor maior na posicao da frente e resgatado o valor menor da variavel auxiliar e colocado na posicao anterior.
+
+# Para fazer a troca usando a atribuicao multipla, ela é feita de maneira posional:
+# O primeiro valor apos o sinal de igualdade vai para a primeira variavel, e asism por diante.
+
+lista = [5, -1]
+if lista[0] > lista[1]:
+    lista[0], lista[1] = lista[1], lista[0]
+
+print(lista)
+    # [-1, 5]
+
+
+# SELECTION SORT (ORDENACAO POR SELECAO)
+# Recebe esse nome porque faz a ordenacao escolhendo o menor valor para ocupar determinada posicao. Suponto que em uma fila de pessoas, precisamos colocar por ordem de tamanho, do menor para o maior.
+
+# Pelo algoritmo selection sort, sera procurado em cada uma das pessoas na fila, a menor delas. Quando encontrar a pessoa troca de lugar com a primeira (agora a primeira pessoa da fila esta na posicao correta). Depois, a partir da segunda pessoa, sera procurado a menor pessoa e trocada de lugar com a segunda pessoa da fila. E assim por diante, ate que a fila esteja ordenada.
+
+# A logica do algoritmo é a seguinte:
+# 1) Percorrer a lista de traz para frente, procurando o menor valor;
+# 2) Trocar o menor valor encontrado com o primeiro valor da lista;
+# 3) Repetir o processo, mas agora a partir da segunda posicao da lista;
+# Esse processo é repetido ate que a lista esteja ordenada.
+
+def executar_selection_sort(lista):
+    n = len(lista)
+
+    for i in range(0, n):
+        index_menor = i
+        for j in range(i + 1, n):
+            if lista[j] < lista[index_menor]:
+                index_menor = j
+        lista[i], lista[index_menor] = lista[index_menor], lista[i]
+    return lista
+
+lista = [10, 9, 5, 8, 11, -1, 3]
+lista_ordenada = executar_selection_sort(lista)
+print(lista_ordenada)
+    # [-1, 3, 5, 8, 9, 10, 11]
+
+# Foi usada uma variavel que guarda o tamanho da lista (n). É necessario 2 estruturas de controle para iterar (para ir atualizando a posicao de insercao quanto para achar o menor valor da lista).
+# Foi usada a variavel 'i' para controlar a posicao da insercao e a variavel 'j' para iterar sobre os valores da lista, procurando o menor valor. A busca pelo menor valor é feita com a variavel 'index_menor', que guarda a posicao do menor valor encontrado para a troca dos valores. Quando o valor da posicao i ja for o menor, entao index_menor nao se atualiza pelo j.
+
+# Sera usado outro exemplo, onde sera criado uma lista vazia e dentro de uma estrutura de repeticao, sera usada a funcao 'min()' para a cada iteracao, encontrar o menor valor da sequencia e adicionar na 'lista_ordenada'.
+# A cada iteracao, o valor adicionado a nova lista é removido da lista original.
+
+def executar_selection_sort2(lista):
+    lista_ordenada = []
+    while lista:
+        minimo = min(lista)
+        lista_ordenada.append(minimo)
+        lista.remove(minimo)
+    return lista_ordenada
+
+lista = [10, 9, 5, 8, 11, -1, 3]
+lista_ordenada = executar_selection_sort2(lista)
+print(lista_ordenada)
+    # [-1, 3, 5, 8, 9, 10, 11]
+
+
+# BUBBLE SORT (ORDENACAO BOLHA)
+# Esse algoritmo faz a ordenacao a partir do inicio da lista, comparando um valor com seu vizinho. Suponto que tenha uma fila de pessoas, e elas precisam ser colocadas por ordem de tamanho, do menor para o maior.
+
+# Usando o bubble sort, a primeira pessoa da fila (pessoa A), pergunta para a segunda pessoa sua altura, se o segundo for menor, entao eles trocam de lugar. Novamente, a pessoa A pergunta para o proximo vizinho qual é sua altura, se for menor, trocam de lugar. E assim por diante, ate que a pessoa A encontre alguem maior, no qual essa nova pessoa vai percorrer a fila ate o final fazendo a mesma pergunta.
+# Esse processo é repetido ate que a fila esteja ordenada.
+
+# A logica do algoritmo é a seguinte:
+# 1) Percorrer a lista de traz para frente, comparando um valor com seu vizinho;
+# 2) Trocar o valor com seu vizinho se o valor for maior que o vizinho;
+# 3) Repetir o processo, mas agora a partir da segunda posicao da lista;
+# Esse processo é repetido ate que a lista esteja ordenada.
+
+def executar_bubble_sort(lista):
+    n = len(lista)
+    for i in range(n - 1):
+        for j in range(n - 1):
+            if lista[j] > lista[j + 1]:
+                lista[j], lista[j + 1] = lista[j + 1], lista[j]
+    return lista
+
+lista = [10, 9, 5, 8, 11, -1, 3]
+lista_ordenada = executar_bubble_sort(lista)
+print(lista_ordenada)
+    # [-1, 3, 5, 8, 9, 10, 11]
+
+# Foi usada uma variavel que guarda o tamanho da lista (n). É necessario 2 estruturas de controle para iterar (para ir atualizando a posicao de insercao quanto para achar o menor valor da lista).
+# Foi usada a variavel 'i' para controlar a posicao da insercao e a variavel 'j' para iterar sobre os valores da lista, procurando o menor valor. A busca pelo menor valor é feita com o auxilio de uma variavel com a qual, quando o menor valor for encontrado, a variavel 'index_menor' recebe o valor da posicao do menor valor encontrado para a troca dos valores. Quando o valor da posicao i ja for o menor, entao index_menor nao se atualiza pelo j.
+
+# Essa versao do selection sort, usa a funcao 'min()' para achar o menor valor da lista e adicionar na lista_ordenada. A cada iteracao, o valor adicionado a nova lista é removido da lista original.
+
+
+# INSERTION SORT (ORDENAÇÃO POR INSERÇÃO)
+# Esse algoritmo faz a ordenacao pela simulacao da insercao de novos valores na lista. Supondo em um jogo de cartas, onde cada jogador comeca com 5 cartas e a cada rodada deve pegar e inserir uma nova carta na mao.
+
+# O jogador deseja deixar as cartas ordenadas, e a cada nova carta precisa inserir na posicao correta. Ele olha a sequencia da esquerda para  adireita procurando a posicao exata para fazer a insercao.
+
+# A logica do algoritmo é a seguinte:
+# 1) Percorrer a lista de traz para frente, procurando a posicao correta para inserir o valor;
+# 2) Inserir o valor na posicao correta;
+# 3) Repetir o processo, mas agora a partir da segunda posicao da lista;
+# Esse processo é repetido ate que a lista esteja ordenada.
+
+def executar_insertion_sort(lista):
+    n = len(lista)
+    for i in range(1, n):
+        valor = lista[i]
+        j = i - 1
+        while j >= 0 and valor < lista[j]:
+            lista[j + 1] = lista[j]
+            j -= 1
+        lista[j + 1] = valor
+    return lista
+
+lista = [10, 9, 5, 8, 11, -1, 3]
+lista_ordenada = executar_insertion_sort(lista)
+print(lista_ordenada)
+    # [-1, 3, 5, 8, 9, 10, 11]
+
+# Foi usada uma variavel que guarda o tamanho da lista (n). É necessario 2 estruturas de controle para iterar (para ir atualizando a posicao de insercao quanto para achar o menor valor da lista). Na primeira estrutura, foi usado o 'for' para controlar a variavel i, que representa a posicao do valor a ser inserido.
+
+# Sabendo exatamente quantas vezes sera iterado, esse for pode ser usado. O for comeca na posicao 1, porque o algoritmo nao precisa iterar sobre a primeira posicao, pois nao ha nada a esquerda para comparar. Criando a segunda estrutura de repeticao com o while, porque nao se sabe quantas vezes sera necessario iterar para encontrar a posicao correta para inserir o valor.
+
+# O loop acontece enquanto houver elementos para comparar (j >= 0) e enquanto o valor a ser inserido for menor que o valor da posicao anterior (lista[j]) for maior que o valor a ser inserido. Enquanto essas condicoes acontecerem os valores ja existentes vao sendo passados para frente e j vai decrementando. Quando  a posicao for encontrada, o valor é inserido.
+
+# Todas as execucoes de ordenamento anteriores, o tempo de execucao foi instantaneo, pois as listas eram pequenas. Caso fossem muitos valores, o tempo de execucao seria maior. A seguir, serao mostrados outros algoritmos mais rapidos, porem mais complexos.
+
+
+# MERGE SORT (ORDENAÇÃO POR MESCLAGEM)
+# Esse algoritmo faz a ordenacao em duas etapas: divide a lista em sublistas, depois junta (merge) as sublistas ordenadas. Conhecido por usar a estrategia de dividir para conquistar.
+
+# Para resolver um determinado problema, ela chama recursivamente uma ou mais vezes para lidar com subproplemas menores. A recursao é usada para dividir a lista em sublistas, ate que cada sublista tenha apenas um elemento. Apos isso, as sublistas sao mescladas (merge) em uma lista ordenada.
+
+# A logica do algoritmo é a seguinte:
+# 1) Dividir a lista em sublistas, ate que cada sublista tenha apenas um elemento;
+# 2) Mesclar as sublistas em uma lista ordenada;
+# Esse processo é repetido ate que a lista esteja ordenada.
+
+# Suponto que existam 2 fileiras de criancas em ordem de tamanho, ao olhar para  aprimeira crianca de cada fila, é possivel identificar a menor e coloca-la na posicao correta. Fazendo isso com todas as criancas, a fila estara ordenada.
+
+# ORDENANDO A LISTA [10, 9, 5, 8]:
+# Comecando pela etapa de divisao, é encontrado o meio da lista e feita uma divisao. Resultando em sublistas [10, 9] e [5, 8] (esquerda e direita). Como essas sublistas possuem mais de um valor, é feita a quebra novamente, resultando em [10] e [9] (esquerda) e [5] e [8] (direita).
+
+# Apos alcancar tamanho minimo da lista, comeca o processo de merge, que faz a juncao de forma ordenada. Comecando pela esquerda, as listas [10] e [9] sao comparadas, gerando a sublista [9, 10]. A sublista [5] e [8] sao comparadas, gerando a sublista [5, 8].
+
+# Apos isso, é feito o novo merge entre essas sublistas de tamanho 2, no topo de cada lista, esta o menor valor de cada uma. Entao, ao olhar para o topo de duas listas, sera visto os valores 9 e 5 (como 5 é menor, ele é o primeiro escolhido para ocupar a posicao 0). Olhando novamente para o topo de cada lista, temos os valores 9 e 8. Como 8 é menor, ele é escolhido para compor a nova lista.
+# Olhando novamente, temos somente uma lista, com valor 9 no topo, portanto ele é escolhido, e por fim o valor 10 é selecionado.
+
+# Pontos importantes desse metodo:
+# É necessario usar 2 funcoes, uma que divide e uma que junta.
+# As sublistas sao fatiamentos da lista original.
+# O algoritmo de merce recebe sempre a lista inteira, mas trata de posicoes especificas. Na etapa da divisao, sao feitas sucessivas subdivisoes aplicando a mesma regra, ate que cada sublista tenha apenas um elemento. Na etapa de merge, as sublistas sao mescladas em uma lista ordenada.
+
+def executar_merge_sort(lista):
+    if len(lista) <= 1: return lista
+    else:
+        meio = len(lista) // 2
+        esquerda = executar_merge_sort(lista[:meio])
+        direita = executar_merge_sort(lista[meio:])
+        return executar_merge(esquerda, direita)
+    
+def executar_merge(esquerda, direita):
+    sub_lista_ordenada = []
+    topo_esquerda, topo_direita = 0, 0
+    while topo_esquerda < len(esquerda) and topo_direita < len(direita):
+        if esquerda[topo_esquerda] <= direita[topo_direita]:
+            sub_lista_ordenada.append(esquerda[topo_esquerda])
+            topo_esquerda += 1
+        else:
+            sub_lista_ordenada.append(direita[topo_direita])
+            topo_direita += 1
+    sub_lista_ordenada += esquerda[topo_esquerda:]
+    sub_lista_ordenada += direita[topo_direita:]
+    return sub_lista_ordenada
+
+lista = [10, 9, 5, 8, 11, -1, 3]
+lista_ordenada = executar_merge_sort(lista)
+print(lista_ordenada)
+    # [-1, 3, 5, 8, 9, 10, 11]
+
+# Foi criada a funcao de ordenacao por merge sort, que contem 2 funcoes (uma para dividir as listas e outra para fazer o merge). A funcao que faz a divisao recebe como parametro a lista a ser ordenada.
+
+# Se o tamanho da lista é menor ou igual a 1, significa que a sublista so tem 1 valor e esta ordenada (seu valor é retornado). Caso nao esteja, é encontrado o meio da lista e feita a divisao entre sublistas da direita e esquerda. Esse processo ;e feito ate que se tenha sublistas com apenas 1 elemento.
+# A funcao de juncao, recebe as 2 listas e percorre cada uma delas pelo while, considerando cada valor, o que for menor é adicionado a sublista ordenada.
+
+
+# QUICK SORT (ORDENAÇÃO RÁPIDA)
+# Considerando um valor em uma lista ordenada, à direita desse numero, existem somente numeros maior que a ele, e a esquerda somente menores. Esse valor é chamado de pivo, e é a estrategia principal do algoritmo de ordenacao rapida.
+
+# Esse algoritmo usa a estrategia de dividir para conquistar, e divide a lista em sublistas (esquerda e direita), onde cada sublista contem valores menores ou maiores que o pivo.
+# Supondo que tenha uma fila de pessoas e elas precisam ser ordenadas por tamanho. É escolhido uma pessoa para usar seu tamanho como comparacao (esse é o pivo), com base nessa pessoa, todos que sao menores a ele devem ir para a esquerda e todos maiores a ele, para a direita. O voluntario esta na posicao ordenada.
+
+# É repetido o procedimento para os menores e maiores. A cada passo, estamos dobrando o numero de pessoas na posicao final. A logica é a seguinte:
+# 1) Escolher um pivo;
+# 2) Colocar todos os valores menores que o pivo a esquerda e os maiores a direita;
+# 3) Repetir o processo para as sublistas menores e maiores.
+
+# Na segunda iteracao, com agora duas listas (direira e esquerda do pivo). Novamente sao escolhidos 2 novos pivos e é feito o mesmo processo de ordenacao. Esse processo é repetido ate que todas as sublistas tenham apenas 1 elemento.
+# Na terceira iteracao, temos 4 sublistas, cada uma com 1 elemento. Apos isso, é feito o merge entre elas, e a lista esta ordenada.
+
+def executar_quick_sort(lista, inicio, fim):
+    if inicio < fim:
+        pivo = executar_particao(lista, inicio, fim)
+        executar_quick_sort(lista, inicio, pivo - 1)
+        executar_quick_sort(lista, pivo + 1, fim)
+    return lista
+
+def executar_particao(lista, inicio, fim):
+    pivo = lista[fim]
+    esquerda = inicio
+    for direita in range(inicio, fim):
+        if lista[direita] <= pivo:
+            lista[direita], lista[esquerda] = lista[esquerda], lista[direita]
+            esquerda += 1
+    lista[esquerda], lista[fim] = lista[fim], lista[esquerda]
+    return esquerda
+
+lista = [10, 9, 5, 8, 11, -1, 3]
+lista_ordenada = executar_quick_sort(lista, 0, len(lista) - 1)
+print(lista_ordenada)
+    # [-1, 3, 5, 8, 9, 10, 11]
+
+# Foram usadas 2 funcoes. A funcao executar_quicksort cria as sublistas, cada uma deve ser criada com base em um pivo. Portanto a caso a posicao de inicio da lista seja menor que o fim (temos mais de 1 elemento), portanto é chamada a funcao executar_particao. Ela faz a comparacao e quando necessario troca os valores de posicao, alem de retornar o indice correto para cada pivo.
+
+# Foi feita a definicao do pivo como o ultimo valor da lista (e mesmo da sublista). Apos isso, foi criada uma variagem de controle par aa separacao da lista da esquerda, ou seja, a lista que guardara os valores menores que o pivo. Foi usado tambem uma estrutura re repeticao para comprar o pivo com todos os valores da lista da direita.
+# A cada vez que um valor menor que o pivo é encontrado, é feita a troca dos valores pelas posicoes e a delimitacao da lista dos menores (esquerda) é atualizada.
+
+# O pivo é colocado na sua posicao (limite da esquerda), fazendo a troca com o valor que esta ali. Por fim, a funcao retorna o indice do pivo.
+
+# Outra opcao usando o listcomp é criando uma lista de pivos (agora o pivo é o primeiro valor da lista), uma lista com os valores menores e uma com valores maiores.
+
+def executar_quick_sort2(lista):
+    if len(lista) <= 1:
+        return lista
+    pivo = lista[0]
+    iguais = [valor for valor in lista if valor == pivo]
+    menores = [valor for valor in lista if valor < pivo]
+    maiores = [valor for valor in lista if valor > pivo]
+    return executar_quick_sort2(menores) + iguais + executar_quick_sort2(maiores)
+
+lista = [10, 9, 5, 8, 11, -1, 3]
+lista_ordenada = executar_quick_sort2(lista)
+print(lista_ordenada)
+    # [-1, 3, 5, 8, 9, 10, 11]
+
+
+# DESAFIO
+# Diante da solução feita no Desafio 2 onde foi feito o dedup em uma lista de CPFs, retornar somente parte numérica do CPF e verificar se eles possuem 11 dígitos. Agora a lista de CPFs deve ser organizada de forma crescente para facilitar o cadastro. A lista de CPFs pode crescer exponencialmente, escolher os algoritmos mais adequados é importante nesse caso.
+
+# DEVERÁ SER FEITO:
+# Realizar as transformações de limpeza e validação nos CPFs (remover ponto e traço, verificar se tem 11 dígitos e não deixar valores duplicados).
+# E também realizar a entrega em ordem crescente.
+
+
+# RESOLUCAO
+# Sera usado a busca binaria (pois performa melhor que a linear), apesar que os dados precisam estar ordenados. Os dados serao ordenados implementando algoritmos de ordenacao rapida e merge sort.
+
+# Sabendo que a quantidade de CPFs pode aumentar exponencialmente, a melhor opcao é usar o MERGE-SORT, visto que no pior caso é o que tem menor complexidade de tempo.
+
+# implementacao do MERGE SORT
+def executar_merge_sort(lista, inicio=0, fim=None):
+    if not fim:
+        fim = len(lista)
+
+    if fim - inicio > 1:
+        meio = (fim + inicio) // 2
+        executar_merge_sort(lista, inicio, meio)
+        executar_merge_sort(lista, meio, fim)
+        executar_merge(lista, inicio, meio, fim)
+    return lista
+
+def executar_merge(lista, inicio, meio, fim):
+    esquerda = lista[inicio:meio]
+    direita = lista[meio:fim]
+    topo_esquerda = topo_direita = 0
+    for p in range(inicio, fim):
+        if topo_esquerda >= len(esquerda):
+            lista[p] = direita[topo_direita]
+            topo_direita += 1
+        elif topo_direita >= len(direita):
+            lista[p] = esquerda[topo_esquerda]
+            topo_esquerda += 1
+        elif esquerda[topo_esquerda] < direita[topo_direita]:
+            lista[p] = esquerda[topo_esquerda]
+            topo_esquerda += 1
+        else:
+            lista[p] = direita[topo_direita]
+            topo_direita += 1
+
+# implementacao da BUSCA BINARIA
+def executar_busca_binaria(lista, valor):
+    minimo = 0
+    maximo = len(lista) - 1
+    while minimo <= maximo:
+        meio = (minimo + maximo) // 2
+        if valor < lista[meio]:
+            maximo = meio - 1
+        elif valor > lista[meio]:
+            minimo = meio + 1
+        else:
+            return True
+    return False
+
+# implementar funcao que faz verificacao do cpf, dedup e devolve o resultado
+def criar_lista_dedup_ordenada(lista):
+    lista = [str(cpf).replace('.','').replace('-','') for cpf in lista]
+    lista = [cpf for cpf in lista if len(cpf) == 11]
+    lista = executar_merge_sort(lista)
+    
+    lista_dedup = []
+    for cpf in lista:
+        if not executar_busca_binaria(lista_dedup, cpf):
+            lista_dedup.append(cpf)
+    return lista_dedup
+
+# funcao teste
+def testar_funcao(lista_cpfs):
+    lista_dedup = criar_lista_dedup_ordenada(lista_cpfs)
+    print(lista_dedup)
+
+lista_cpfs = ['44444444444', '111.111.111-11', '11111111111', '222.222.222-22', '333.333.333-33', '22222222222', '444.44444']
+lista_ordenada1 = testar_funcao(lista_cpfs)
+    # ['11111111111', '22222222222', '33333333333', '44444444444']
+
+# Foram usados algoritmos de ordenacao MERGE SORT e BUSCA BINARIA. No de ordenacao, foi feito um tratamento na variavem fim, para que nao precise ser passada explicitamente na primeira chamada.
+
+# Na funcao criar_lista_dedup_ordenada, foi usado uma listcomp para remover o ponto e o traço do cpf. Apos isso, foi criado novamente um listcomp para guardar somente os CPFs que possuem 11 digitos. Com os cpfs validos, é usada a funcao de ordenacao, que retorna a lista ordenada. Por fim, foi feita a busca binaria para verificar se o valor ja esta na lista, caso nao esteja ele é adicionado.
